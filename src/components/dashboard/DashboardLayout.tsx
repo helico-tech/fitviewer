@@ -1,7 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useRunStore } from "@/store/useRunStore"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { SummaryCards } from "@/components/dashboard/SummaryCards"
 import {
   LayoutDashboard,
   Map,
@@ -25,126 +26,10 @@ function formatDate(date: Date): string {
   }).format(date)
 }
 
-function formatDuration(seconds: number): string {
-  const h = Math.floor(seconds / 3600)
-  const m = Math.floor((seconds % 3600) / 60)
-  const s = Math.floor(seconds % 60)
-  if (h > 0)
-    return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`
-  return `${m}:${String(s).padStart(2, "0")}`
-}
-
-function formatPace(secPerKm: number): string {
-  if (!secPerKm || !isFinite(secPerKm)) return "--:--"
-  const m = Math.floor(secPerKm / 60)
-  const s = Math.floor(secPerKm % 60)
-  return `${m}:${String(s).padStart(2, "0")}`
-}
-
 function OverviewTab() {
-  const runData = useRunStore((state) => state.runData)
-  if (!runData) return null
-  const { summary } = runData
-
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Distance
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold" data-testid="distance">
-              {(summary.totalDistance / 1000).toFixed(2)} km
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Duration
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold" data-testid="duration">
-              {formatDuration(summary.totalTime)}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Avg Pace
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold" data-testid="avg-pace">
-              {formatPace(summary.avgPace)} /km
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Avg Heart Rate
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold" data-testid="avg-hr">
-              {summary.avgHeartRate
-                ? `${Math.round(summary.avgHeartRate)} bpm`
-                : "—"}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Calories
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold" data-testid="calories">
-              {summary.calories ? Math.round(summary.calories) : "—"}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Elevation Gain
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold" data-testid="elevation">
-              {summary.totalAscent
-                ? `${Math.round(summary.totalAscent)} m`
-                : "—"}
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            Data Points
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">
-            {runData.records.length} GPS records, {runData.laps.length} laps,{" "}
-            {runData.sessions.length} sessions
-          </p>
-        </CardContent>
-      </Card>
+      <SummaryCards />
     </div>
   )
 }

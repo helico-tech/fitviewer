@@ -171,3 +171,14 @@ Each entry should include:
   - `src/components/file/LoadingState.tsx` — redesigned with header, tab bar, summary card, chart, and map skeletons matching dashboard layout
   - `e2e/loading-skeletons.spec.ts` — 5 new E2E tests for skeleton rendering and transition
 - **Issues:** None
+
+## Build summary cards
+- **Completed:** 2026-03-01 15:00 UTC
+- **Epic:** Dashboard Summary
+- **Summary:** Created a dedicated `SummaryCards.tsx` component with six shadcn Cards displaying Distance, Duration, Avg Pace, Avg Heart Rate, Calories, and Elevation Gain. Each card reads from the Zustand store's `runData.summary` and includes a lucide icon. Values are properly formatted (distance as "10.23 km", pace as "5:06 /km", duration as "52:14", etc.) with em dash fallbacks for missing data. Extracted and refactored the inline cards from DashboardLayout's OverviewTab into this reusable component.
+- **Changes:**
+  - `src/components/dashboard/SummaryCards.tsx` — new component with six summary cards, formatting functions, and data-driven card config
+  - `src/components/dashboard/DashboardLayout.tsx` — refactored OverviewTab to use SummaryCards, removed inline card code and formatting functions
+  - `e2e/summary-cards.spec.ts` — 12 new E2E tests covering all cards, formatting, missing data handling, and edge cases
+  - `epics/dashboard-summary.md` — marked story as done
+- **Issues:** None
