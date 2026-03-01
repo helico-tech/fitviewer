@@ -420,3 +420,15 @@ Each entry should include:
   - `e2e/responsive.spec.ts` — fixed pre-existing ambiguous card selector in responsive test
   - `epics/cross-feature-integration-polish.md` — marked story as done
 - **Issues:** None
+
+## Add lap segments on map
+- **Completed:** 2026-03-01 09:00 UTC
+- **Epic:** Cross-Feature Integration & Polish
+- **Summary:** Added a segment overlay system to the map that visualizes lap boundaries and split segments as colored route sections. A "Segments" dropdown in MapControls toggles between None, Auto Splits, and Laps modes. Each segment is drawn as a distinct colored line (from an 8-color cycling palette) with boundary markers at transition points. The overlay works alongside existing map features (metric coloring, hover sync, km markers).
+- **Changes:**
+  - `src/store/useRunStore.ts` — added `MapOverlayMode` type, `mapOverlayMode` state, and `setMapOverlayMode` action
+  - `src/components/map/RunMap.tsx` — added segment overlay effect drawing colored lines per lap/split with boundary markers
+  - `src/components/map/MapControls.tsx` — added Segments dropdown with None/Auto Splits/Laps options
+  - `e2e/lap-segments.spec.ts` — 10 new E2E tests covering overlay selector, mode switching, store state, boundary markers, and cleanup
+  - `epics/cross-feature-integration-polish.md` — marked story as done
+- **Issues:** None

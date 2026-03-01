@@ -5,9 +5,22 @@ import { useRunStore } from "@/store/useRunStore"
 import { buildLineGradient } from "@/lib/map-colors"
 import { computeDistanceMarkers } from "@/lib/map-markers"
 import { computeSplits } from "@/lib/calculations"
+import type { Lap } from "@/types/run"
 
 const METERS_PER_KM = 1000
 const METERS_PER_MILE = 1609.34
+
+/** Cycling color palette for lap/split segments */
+const SEGMENT_COLORS = [
+  "#3b82f6", // blue
+  "#ef4444", // red
+  "#22c55e", // green
+  "#a855f7", // purple
+  "#f97316", // orange
+  "#06b6d4", // cyan
+  "#ec4899", // pink
+  "#eab308", // yellow
+]
 
 export function RunMap() {
   const mapContainerRef = useRef<HTMLDivElement>(null)
@@ -18,6 +31,9 @@ export function RunMap() {
   const unitSystem = useRunStore((state) => state.unitSystem)
   const setHoveredIndex = useRunStore((state) => state.setHoveredIndex)
   const selectedSplitIndex = useRunStore((state) => state.selectedSplitIndex)
+  const mapOverlayMode = useRunStore((state) => state.mapOverlayMode)
+  const laps = useRunStore((state) => state.runData?.laps)
+  const overlayMarkersRef = useRef<maplibregl.Marker[]>([])
   const [mapLoaded, setMapLoaded] = useState(false)
 
   // Filter and prepare coordinates (stable across metric changes)
@@ -86,6 +102,8 @@ export function RunMap() {
     return () => {
       markersRef.current.forEach((m) => m.remove())
       markersRef.current = []
+      overlayMarkersRef.current.forEach((m) => m.remove())
+      overlayMarkersRef.current = []
       map.remove()
       mapRef.current = null
       setMapLoaded(false)
@@ -401,6 +419,126 @@ export function RunMap() {
       if (map.getSource("highlight")) map.removeSource("highlight")
     }
   }, [mapLoaded, selectedSplitIndex, records, unitSystem])
+
+  // Lap/split segment overlay
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !mapLoaded || !records || records.length < 2) return
+
+    // Clean up previous overlay layers, sources, and markers
+    const cleanupOverlay = () => {
+      // Remove segment layers and sources
+      let i = 0
+      while (true) {
+        const layerId = `overlay-segment-${i}`
+        if (map.getLayer(layerId)) {
+          map.removeLayer(layerId)
+          map.removeSource(layerId)
+          i++
+        } else {
+          break
+        }
+      }
+      // Remove boundary markers
+      overlayMarkersRef.current.forEach((m) => m.remove())
+      overlayMarkersRef.current = []
+    }
+
+    cleanupOverlay()
+
+    if (mapOverlayMode === "none") return
+
+    // Get segments based on overlay mode
+    type Segment = { startIndex: number; endIndex: number; label: string }
+    let segments: Segment[] = []
+
+    if (mapOverlayMode === "splits") {
+      const splits = computeSplits(records, unitSystem)
+      segments = splits.map((s) => ({
+        startIndex: s.startIndex,
+        endIndex: s.endIndex,
+        label: `${unitSystem === "metric" ? "km" : "mi"} ${s.number}`,
+      }))
+    } else if (mapOverlayMode === "laps" && laps && laps.length > 0) {
+      segments = laps.map((lap: Lap, idx: number) => ({
+        startIndex: lap.startIndex,
+        endIndex: lap.endIndex,
+        label: `Lap ${idx + 1}`,
+      }))
+    }
+
+    if (segments.length === 0) return
+
+    // Draw each segment as a colored line
+    segments.forEach((seg, idx) => {
+      const segCoords: [number, number][] = []
+      for (let j = seg.startIndex; j <= seg.endIndex && j < records.length; j++) {
+        const r = records[j]
+        if (
+          r.lat != null &&
+          r.lon != null &&
+          isFinite(r.lat) &&
+          isFinite(r.lon) &&
+          r.lat !== 0 &&
+          r.lon !== 0
+        ) {
+          segCoords.push([r.lon, r.lat])
+        }
+      }
+      if (segCoords.length < 2) return
+
+      const layerId = `overlay-segment-${idx}`
+      const color = SEGMENT_COLORS[idx % SEGMENT_COLORS.length]
+
+      map.addSource(layerId, {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: { type: "LineString", coordinates: segCoords },
+        },
+      })
+
+      map.addLayer({
+        id: layerId,
+        type: "line",
+        source: layerId,
+        layout: { "line-join": "round", "line-cap": "round" },
+        paint: { "line-color": color, "line-width": 6, "line-opacity": 0.85 },
+      })
+    })
+
+    // Add boundary markers at segment starts (skip the first since it's the route start)
+    segments.forEach((seg, idx) => {
+      if (idx === 0) return // skip first boundary (it's the start marker)
+      const r = records[seg.startIndex]
+      if (
+        !r ||
+        r.lat == null ||
+        r.lon == null ||
+        !isFinite(r.lat) ||
+        !isFinite(r.lon) ||
+        r.lat === 0 ||
+        r.lon === 0
+      )
+        return
+
+      const el = document.createElement("div")
+      el.className = "lap-boundary-marker"
+      el.setAttribute("data-testid", `boundary-marker-${idx}`)
+      el.style.cssText =
+        "width:10px;height:10px;border-radius:50%;background:white;border:2px solid #374151;box-shadow:0 1px 3px rgba(0,0,0,0.3);"
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([r.lon, r.lat])
+        .setPopup(new maplibregl.Popup({ offset: 8 }).setText(seg.label))
+        .addTo(map)
+
+      overlayMarkersRef.current.push(marker)
+    })
+
+    return cleanupOverlay
+  }, [mapLoaded, mapOverlayMode, records, laps, unitSystem])
 
   return (
     <div

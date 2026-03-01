@@ -20,7 +20,7 @@ Wire up cross-cutting interactions, synchronization, and visual polish across al
 - Highlight clears when switching away from the Splits tab
 
 ## Story: Add lap segments on map
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** medium
 - **Depends on:** Render route polyline on MapLibre, Build manual laps table
 

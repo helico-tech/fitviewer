@@ -4,6 +4,7 @@ import { parseFitFile } from "@/lib/fit-parser";
 import { DEFAULT_ZONE_PCTS } from "@/lib/calculations";
 
 export type MapMetric = "none" | "pace" | "heartRate" | "altitude" | "cadence";
+export type MapOverlayMode = "none" | "splits" | "laps";
 export type ChartXAxis = "distance" | "time";
 
 export interface ZoneBoundary {
@@ -21,6 +22,7 @@ interface RunStore {
   unitSystem: "metric" | "imperial";
   hoveredIndex: number | null;
   mapMetric: MapMetric;
+  mapOverlayMode: MapOverlayMode;
   chartXAxis: ChartXAxis;
   smoothingWindow: number;
 
@@ -37,6 +39,7 @@ interface RunStore {
   setUnitSystem: (unit: "metric" | "imperial") => void;
   setHoveredIndex: (index: number | null) => void;
   setMapMetric: (metric: MapMetric) => void;
+  setMapOverlayMode: (mode: MapOverlayMode) => void;
   setChartXAxis: (axis: ChartXAxis) => void;
   setSmoothingWindow: (window: number) => void;
   setSelectedSplitIndex: (index: number | null) => void;
@@ -53,6 +56,7 @@ export const useRunStore = create<RunStore>((set) => ({
   hoveredIndex: null,
   selectedSplitIndex: null,
   mapMetric: "pace" as MapMetric,
+  mapOverlayMode: "none" as MapOverlayMode,
   chartXAxis: "distance" as ChartXAxis,
   smoothingWindow: 10,
 
@@ -88,6 +92,10 @@ export const useRunStore = create<RunStore>((set) => ({
 
   setMapMetric: (mapMetric) => {
     set({ mapMetric });
+  },
+
+  setMapOverlayMode: (mapOverlayMode) => {
+    set({ mapOverlayMode });
   },
 
   setChartXAxis: (chartXAxis) => {

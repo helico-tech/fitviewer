@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { Palette } from "lucide-react"
+import { Palette, Layers } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -8,7 +8,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useRunStore, type MapMetric } from "@/store/useRunStore"
+import { useRunStore, type MapMetric, type MapOverlayMode } from "@/store/useRunStore"
 import { getMetricRange, LEGEND_GRADIENT } from "@/lib/map-colors"
 import { formatPace, formatElevation } from "@/lib/units"
 
@@ -43,9 +43,21 @@ function formatMetricValue(
   }
 }
 
+const OVERLAY_OPTIONS: { value: MapOverlayMode; label: string }[] = [
+  { value: "none", label: "None" },
+  { value: "splits", label: "Auto Splits" },
+  { value: "laps", label: "Laps" },
+]
+
+function getOverlayLabel(mode: MapOverlayMode): string {
+  return OVERLAY_OPTIONS.find((o) => o.value === mode)?.label ?? "None"
+}
+
 export function MapControls() {
   const mapMetric = useRunStore((s) => s.mapMetric)
   const setMapMetric = useRunStore((s) => s.setMapMetric)
+  const mapOverlayMode = useRunStore((s) => s.mapOverlayMode)
+  const setMapOverlayMode = useRunStore((s) => s.setMapOverlayMode)
   const records = useRunStore((s) => s.runData?.records)
   const unitSystem = useRunStore((s) => s.unitSystem)
 
@@ -91,6 +103,31 @@ export function MapControls() {
                 key={opt.value}
                 value={opt.value}
                 data-testid={`metric-option-${opt.value}`}
+              >
+                {opt.label}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" data-testid="overlay-selector">
+            <Layers className="size-4 mr-2" />
+            Segments: {getOverlayLabel(mapOverlayMode)}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuRadioGroup
+            value={mapOverlayMode}
+            onValueChange={(v) => setMapOverlayMode(v as MapOverlayMode)}
+          >
+            {OVERLAY_OPTIONS.map((opt) => (
+              <DropdownMenuRadioItem
+                key={opt.value}
+                value={opt.value}
+                data-testid={`overlay-option-${opt.value}`}
               >
                 {opt.label}
               </DropdownMenuRadioItem>
