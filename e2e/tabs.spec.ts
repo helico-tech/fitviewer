@@ -83,7 +83,7 @@ test.describe("Tab navigation", () => {
   test("clicking Zones tab shows zones content", async ({ page }) => {
     await page.getByTestId("tab-zones").click()
     await expect(page.getByTestId("tab-content-zones")).toBeVisible()
-    await expect(page.getByText("Zones — coming soon")).toBeVisible()
+    await expect(page.getByTestId("zone-config")).toBeVisible()
   })
 
   test("switching tabs hides previous tab content", async ({ page }) => {

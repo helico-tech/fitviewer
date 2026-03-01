@@ -10,6 +10,7 @@ import { HeartRateChart } from "@/components/charts/HeartRateChart"
 import { ElevationChart } from "@/components/charts/ElevationChart"
 import { CadenceChart } from "@/components/charts/CadenceChart"
 import { ChartControls } from "@/components/charts/ChartControls"
+import { ZoneConfig } from "@/components/zones/ZoneConfig"
 import {
   LayoutDashboard,
   Map,
@@ -98,7 +99,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
             <StubTab title="Splits" />
           </TabsContent>
           <TabsContent value="zones" data-testid="tab-content-zones">
-            <StubTab title="Zones" />
+            <ZoneConfig />
           </TabsContent>
         </Tabs>
       </div>

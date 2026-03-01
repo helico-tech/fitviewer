@@ -1,9 +1,15 @@
 import { create } from "zustand";
 import type { RunData } from "@/types/run";
 import { parseFitFile } from "@/lib/fit-parser";
+import { DEFAULT_ZONE_PCTS } from "@/lib/calculations";
 
 export type MapMetric = "none" | "pace" | "heartRate" | "altitude" | "cadence";
 export type ChartXAxis = "distance" | "time";
+
+export interface ZoneBoundary {
+  min: number; // percentage of max HR (0-1)
+  max: number; // percentage of max HR (0-1)
+}
 
 interface RunStore {
   // Run data
@@ -18,6 +24,10 @@ interface RunStore {
   chartXAxis: ChartXAxis;
   smoothingWindow: number;
 
+  // Zone config
+  maxHR: number;
+  zoneBoundaries: ZoneBoundary[];
+
   // Actions
   loadFile: (file: File) => Promise<void>;
   reset: () => void;
@@ -26,6 +36,8 @@ interface RunStore {
   setMapMetric: (metric: MapMetric) => void;
   setChartXAxis: (axis: ChartXAxis) => void;
   setSmoothingWindow: (window: number) => void;
+  setMaxHR: (maxHR: number) => void;
+  setZoneBoundaries: (boundaries: ZoneBoundary[]) => void;
 }
 
 export const useRunStore = create<RunStore>((set) => ({
@@ -39,11 +51,17 @@ export const useRunStore = create<RunStore>((set) => ({
   chartXAxis: "distance" as ChartXAxis,
   smoothingWindow: 10,
 
+  maxHR: 190,
+  zoneBoundaries: [...DEFAULT_ZONE_PCTS],
+
   loadFile: async (file: File) => {
     set({ isLoading: true, error: null });
     try {
       const runData = await parseFitFile(file);
-      set({ runData, isLoading: false });
+      const maxHR = runData.summary.maxHeartRate > 0
+        ? runData.summary.maxHeartRate
+        : 190;
+      set({ runData, isLoading: false, maxHR });
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "Failed to parse file";
@@ -73,6 +91,14 @@ export const useRunStore = create<RunStore>((set) => ({
 
   setSmoothingWindow: (smoothingWindow) => {
     set({ smoothingWindow: Math.max(1, Math.min(30, smoothingWindow)) });
+  },
+
+  setMaxHR: (maxHR) => {
+    set({ maxHR: Math.max(100, Math.min(230, maxHR)) });
+  },
+
+  setZoneBoundaries: (zoneBoundaries) => {
+    set({ zoneBoundaries });
   },
 }));
 

@@ -340,3 +340,19 @@ Each entry should include:
   - `epics/charts-graphs.md` — marked story as done
   - `BACKLOG.md` — marked Charts & Graphs epic as done
 - **Issues:** None
+
+## Implement zone configuration
+- **Completed:** 2026-03-01 03:00 UTC
+- **Epic:** Heart Rate Zone Analysis
+- **Summary:** Created the HR zone configuration system with a `calculations.ts` utility module exporting `buildZones()` and `calculateZoneDistribution()`, zone config state in the Zustand store (`maxHR`, `zoneBoundaries`), and a `ZoneConfig.tsx` component rendering the full Zones tab. The component includes a max HR input (auto-populated from parsed data), zone boundary display with standard colors (gray, blue, green, orange, red), a stacked distribution bar, and a time-in-zones table. Default zones follow the 5-zone model: Z1 (50-60%), Z2 (60-70%), Z3 (70-80%), Z4 (80-90%), Z5 (90-100%) of max HR.
+- **Changes:**
+  - `src/lib/calculations.ts` — new file with `buildZones()`, `calculateZoneDistribution()`, zone constants
+  - `src/store/useRunStore.ts` — added `maxHR`, `zoneBoundaries` state, `setMaxHR`/`setZoneBoundaries` actions, auto-set maxHR on file load
+  - `src/components/zones/ZoneConfig.tsx` — new component with max HR input, zone boundaries, distribution bar, and time table
+  - `src/components/dashboard/DashboardLayout.tsx` — replaced Zones tab stub with ZoneConfig component
+  - `src/components/ui/input.tsx` — installed shadcn Input component
+  - `src/components/ui/label.tsx` — installed shadcn Label component
+  - `e2e/zone-config.spec.ts` — 10 new E2E tests covering rendering, defaults, max HR changes, distribution, colors, and labels
+  - `e2e/tabs.spec.ts` — updated Zones tab test for new ZoneConfig component
+  - `epics/heart-rate-zone-analysis.md` — marked story as done
+- **Issues:** None
