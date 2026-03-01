@@ -23,7 +23,7 @@ Initialize the project scaffolding, install dependencies, and configure the deve
   - `npm run build` compiles without errors
 
 ### Story: Set up Tailwind CSS and shadcn/ui
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Initialize Vite + React + TypeScript project
 - **Description:** Install and configure Tailwind CSS v4, then initialize shadcn/ui with a base set of components (button, card, tabs, table, skeleton, dropdown-menu, slider).
