@@ -61,3 +61,14 @@ Each entry should include:
   - `src/types/` — created directory
   - `src/types/run.ts` — RunData, RunSummary, DataPoint, Lap, Session interfaces
 - **Issues:** None
+
+## Set up Playwright for E2E testing
+- **Completed:** 2026-03-01 09:35 UTC
+- **Epic:** Project Setup
+- **Summary:** Installed Playwright with Chromium browser and created `playwright.config.ts` pointing to the Vite dev server. Created three smoke tests in `e2e/smoke.spec.ts` that verify the app loads, renders the FitViewer heading, and shows the Get Started button. Added `test:e2e` npm script and Playwright artifact entries to `.gitignore`.
+- **Changes:**
+  - `package.json` — added `@playwright/test` dev dependency and `test:e2e` script
+  - `playwright.config.ts` — Playwright configuration with Vite webServer integration
+  - `e2e/smoke.spec.ts` — three smoke tests verifying app renders correctly
+  - `.gitignore` — added Playwright report/result directories
+- **Issues:** None

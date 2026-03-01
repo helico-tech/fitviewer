@@ -45,7 +45,7 @@ Initialize the project scaffolding, install dependencies, and configure the deve
   - Project still compiles without errors
 
 ### Story: Set up Playwright for E2E testing
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Set up Tailwind CSS and shadcn/ui
 - **Description:** Install Playwright, configure it for the Vite dev server, and create a basic smoke test that verifies the app loads.
