@@ -39,7 +39,7 @@ Display auto-splits and manual laps in tables with visual comparison.
 - Shows a message if no manual laps are present
 
 ## Story: Add split comparison bar chart and best/worst badges
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** medium
 - **Depends on:** Build auto splits table
 

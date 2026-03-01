@@ -393,3 +393,15 @@ Each entry should include:
   - `e2e/laps-table.spec.ts` — 12 new E2E tests covering rendering, columns, type badges, type column visibility, formatting, unit switching, and empty state
   - `epics/splits-laps.md` — marked story as done
 - **Issues:** None
+
+## Add split comparison bar chart and best/worst badges
+- **Completed:** 2026-03-01 07:00 UTC
+- **Epic:** Splits & Laps
+- **Summary:** Created `SplitBarChart.tsx` with horizontal pace bars for each auto-computed split. Bar widths are proportional to pace range (30-100% scale), with the fastest split highlighted in green with a "Fastest" badge and the slowest in red with a "Slowest" badge. Badges are hidden when there's only one split. The chart respects the unit toggle and is placed above the splits table in the Splits tab. Completed the Splits & Laps epic.
+- **Changes:**
+  - `src/components/splits/SplitBarChart.tsx` — new component with horizontal pace bars, green/red highlighting, fastest/slowest badges
+  - `src/components/dashboard/DashboardLayout.tsx` — integrated SplitBarChart above SplitsTable in Splits tab
+  - `e2e/split-bar-chart.spec.ts` — 12 new E2E tests covering rendering, bars, badges, colors, widths, unit switching, ordering, and edge cases
+  - `epics/splits-laps.md` — marked story as done
+  - `BACKLOG.md` — marked Splits & Laps epic as done
+- **Issues:** None

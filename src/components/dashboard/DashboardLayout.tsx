@@ -12,6 +12,7 @@ import { ChartControls } from "@/components/charts/ChartControls"
 import { ZoneConfig } from "@/components/zones/ZoneConfig"
 import { SplitsTable } from "@/components/splits/SplitsTable"
 import { LapsTable } from "@/components/splits/LapsTable"
+import { SplitBarChart } from "@/components/splits/SplitBarChart"
 import {
   LayoutDashboard,
   Map,
@@ -88,6 +89,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
           </TabsContent>
           <TabsContent value="splits" data-testid="tab-content-splits">
             <div className="space-y-6">
+              <SplitBarChart />
               <SplitsTable />
               <LapsTable />
             </div>
