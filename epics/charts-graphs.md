@@ -59,7 +59,7 @@ Build time-series charts for pace, heart rate, elevation, and cadence with share
 - Both charts are responsive
 
 ## Story: Add chart axis toggle and controls
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Build elevation profile and cadence chart
 
