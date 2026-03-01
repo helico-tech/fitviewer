@@ -102,3 +102,15 @@ Each entry should include:
 - **Changes:**
   - `src/store/useRunStore.ts` — Zustand store with run data state, UI state, and actions (loadFile, reset, setUnitSystem, setHoveredIndex)
 - **Issues:** None
+
+## Wire up drop zone to parser and store
+- **Completed:** 2026-03-01 11:30 UTC
+- **Epic:** File Handling & Parsing
+- **Summary:** Connected the DropZone component to the Zustand store so that dropping/selecting a `.fit` file triggers `loadFile()`, which parses the file in a Web Worker and transitions the app through loading, success (dashboard), and error states. Created a `LoadingState` component with skeleton placeholders and a spinner, and a `DashboardPlaceholder` component that displays parsed summary stats. Error handling shows a sonner toast with the parse error message.
+- **Changes:**
+  - `src/App.tsx` — rewired to use Zustand store, conditional rendering for drop zone / loading / dashboard / error states
+  - `src/components/file/LoadingState.tsx` — loading state with spinner and skeleton cards
+  - `src/components/dashboard/DashboardPlaceholder.tsx` — temporary dashboard showing summary stats with "Load new file" button
+  - `src/store/useRunStore.ts` — exposed store on window in dev mode for E2E testing
+  - `e2e/wiring.spec.ts` — 5 new E2E tests covering loading state, error toast, dashboard rendering, and "Load new file" flow
+- **Issues:** None

@@ -1,16 +1,38 @@
-import { useCallback } from "react"
+import { useEffect } from "react"
 import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
 import { DropZone } from "@/components/file/DropZone"
+import { LoadingState } from "@/components/file/LoadingState"
+import { DashboardPlaceholder } from "@/components/dashboard/DashboardPlaceholder"
+import { useRunStore } from "@/store/useRunStore"
 
 function App() {
-  const handleFileAccepted = useCallback((file: File) => {
-    // TODO: Wire up to Zustand store / parser in a future story
-    console.log("File accepted:", file.name, file.size)
-  }, [])
+  const { runData, isLoading, error, loadFile, reset } = useRunStore()
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Failed to load file", {
+        description: error,
+        action: {
+          label: "Dismiss",
+          onClick: () => reset(),
+        },
+      })
+    }
+  }, [error, reset])
+
+  let content
+  if (isLoading) {
+    content = <LoadingState />
+  } else if (runData) {
+    content = <DashboardPlaceholder onLoadNew={reset} />
+  } else {
+    content = <DropZone onFileAccepted={loadFile} />
+  }
 
   return (
     <>
-      <DropZone onFileAccepted={handleFileAccepted} />
+      {content}
       <Toaster />
     </>
   )

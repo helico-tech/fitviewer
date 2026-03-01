@@ -51,3 +51,8 @@ export const useRunStore = create<RunStore>((set) => ({
     set({ hoveredIndex });
   },
 }));
+
+// Expose store API on window for E2E testing
+if (import.meta.env.DEV) {
+  (window as any).__runStore = useRunStore;
+}
