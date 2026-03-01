@@ -8,9 +8,11 @@ interface DropZoneProps {
   onFileAccepted: (file: File) => void
   error?: string | null
   onDismissError?: () => void
+  onLoadSample?: () => void
+  isSampleLoading?: boolean
 }
 
-export function DropZone({ onFileAccepted, error, onDismissError }: DropZoneProps) {
+export function DropZone({ onFileAccepted, error, onDismissError, onLoadSample, isSampleLoading }: DropZoneProps) {
   const [isDragOver, setIsDragOver] = useState(false)
   const [fileError, setFileError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -129,6 +131,18 @@ export function DropZone({ onFileAccepted, error, onDismissError }: DropZoneProp
             <Button onClick={handleBrowseClick} size="lg" className="w-full max-w-xs">
               Browse files
             </Button>
+            {onLoadSample && (
+              <Button
+                onClick={onLoadSample}
+                variant="outline"
+                size="sm"
+                className="w-full max-w-xs"
+                disabled={isSampleLoading}
+                data-testid="sample-button"
+              >
+                {isSampleLoading ? "Loading sample…" : "Try with sample data"}
+              </Button>
+            )}
             <p className="text-xs text-muted-foreground">
               Supports .fit files from Garmin, Wahoo, COROS, and other GPS watches
             </p>
