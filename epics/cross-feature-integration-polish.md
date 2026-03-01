@@ -3,7 +3,7 @@
 Wire up cross-cutting interactions, synchronization, and visual polish across all features.
 
 ## Story: Implement highlight split on map
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** medium
 - **Depends on:** Build auto splits table, Render route polyline on MapLibre
 
