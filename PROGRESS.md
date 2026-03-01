@@ -162,3 +162,12 @@ Each entry should include:
   - `src/index.css` — added `overflow-x-hidden` to body to prevent horizontal scrolling
   - `e2e/responsive.spec.ts` — 9 new E2E tests verifying desktop and tablet layouts, no horizontal scrolling, and drop zone responsiveness
 - **Issues:** None
+
+## Add loading skeletons
+- **Completed:** 2026-03-01 14:30 UTC
+- **Epic:** UI Shell & Navigation
+- **Summary:** Redesigned the LoadingState component to mirror the real DashboardLayout structure with skeleton placeholders for the run header, tab bar, six summary cards, chart area, and map area. Skeleton dimensions match approximate real component sizes for a smooth transition from loading to loaded state. Added 5 Playwright E2E tests verifying skeleton visibility and disappearance on data load.
+- **Changes:**
+  - `src/components/file/LoadingState.tsx` — redesigned with header, tab bar, summary card, chart, and map skeletons matching dashboard layout
+  - `e2e/loading-skeletons.spec.ts` — 5 new E2E tests for skeleton rendering and transition
+- **Issues:** None

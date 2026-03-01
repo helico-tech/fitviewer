@@ -42,15 +42,15 @@ Build the app shell with tab navigation, responsive layout, and loading/empty st
 - **Technical Notes:** Use the playwright-cli skill to take screenshots at different viewport sizes and verify layout.
 
 ## Story: Add loading skeletons
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** medium
 - **Depends on:** Implement tab navigation layout
 
 #### Tasks
-- [ ] Add shadcn Skeleton placeholders for summary cards during loading
-- [ ] Add Skeleton placeholders for chart areas during loading
-- [ ] Add Skeleton placeholder for map during loading
-- [ ] Match skeleton dimensions to approximate real component sizes
+- [x] Add shadcn Skeleton placeholders for summary cards during loading
+- [x] Add Skeleton placeholders for chart areas during loading
+- [x] Add Skeleton placeholder for map during loading
+- [x] Match skeleton dimensions to approximate real component sizes
 
 #### Acceptance Criteria
 - Skeleton placeholders render during the loading state for summary cards, chart areas, and map
