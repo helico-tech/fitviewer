@@ -76,7 +76,7 @@ Implement the file drop zone, FIT file parsing in a Web Worker, and error handli
 - **Technical Notes:** Use shadcn card and button components. Verify drag-drop interaction works using the playwright-cli skill.
 
 ### Story: Implement FIT file parsing in a Web Worker
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Create project directory structure and type definitions
 - **Description:** Create `src/workers/fit-parser.worker.ts` that receives an ArrayBuffer, parses it with `fit-file-parser`, and posts back structured RunData. Create `src/lib/fit-parser.ts` as the wrapper that manages the worker lifecycle.
