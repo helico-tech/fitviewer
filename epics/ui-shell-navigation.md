@@ -42,7 +42,7 @@ Build the app shell with tab navigation, responsive layout, and loading/empty st
 - **Technical Notes:** Use the playwright-cli skill to take screenshots at different viewport sizes and verify layout.
 
 ## Story: Add loading skeletons
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** medium
 - **Depends on:** Implement tab navigation layout
 
