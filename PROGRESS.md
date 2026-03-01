@@ -139,3 +139,14 @@ Each entry should include:
   - `e2e/dropzone.spec.ts` — updated existing test for new inline error UI
   - `e2e/wiring.spec.ts` — updated corrupt file test to check inline error instead of toast
 - **Issues:** Discovered that `fit-file-parser` with `force: true` can hang indefinitely on certain binary data patterns, requiring the timeout safeguard.
+
+## Add sample file loader
+- **Completed:** 2026-03-01 13:00 UTC
+- **Epic:** File Handling & Parsing
+- **Summary:** Added a "Try with sample data" button to the drop zone that fetches a bundled sample FIT file from `public/sample.fit` and loads it through the same parsing pipeline as user-dropped files. The sample file is a real FIT file with valid GPS and metrics data. Four Playwright E2E tests verify the button appears, loads data into the dashboard, works through the same pipeline, and allows loading a new file afterward.
+- **Changes:**
+  - `public/sample.fit` — real FIT file bundled as sample data
+  - `src/components/file/DropZone.tsx` — added `onLoadSample` and `isSampleLoading` props; renders "Try with sample data" button
+  - `src/App.tsx` — added `loadSample()` function that fetches sample.fit and passes it through `loadFile()`
+  - `e2e/sample-loader.spec.ts` — 4 E2E tests for sample file loader feature
+- **Issues:** None

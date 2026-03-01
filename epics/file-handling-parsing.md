@@ -98,14 +98,14 @@ Implement the file drop zone, FIT file parsing in a Web Worker, and error handli
 - Error state is cleared when user tries a new file
 
 ## Story: Add sample file loader
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** medium
 - **Depends on:** Wire up drop zone to parser and store
 
 #### Tasks
-- [ ] Place a real `.fit` file in `public/sample.fit`
-- [ ] Add "Try with sample data" button on the drop zone
-- [ ] Fetch and load sample file through the same parsing pipeline as user-dropped files
+- [x] Place a real `.fit` file in `public/sample.fit`
+- [x] Add "Try with sample data" button on the drop zone
+- [x] Fetch and load sample file through the same parsing pipeline as user-dropped files
 
 #### Acceptance Criteria
 - A real `.fit` file is placed in `public/sample.fit`

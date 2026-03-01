@@ -10,7 +10,7 @@
 ## Epics
 
 - [x] [project-setup](epics/project-setup.md) — Project Setup
-- [~] [file-handling-parsing](epics/file-handling-parsing.md) — File Handling & Parsing
+- [x] [file-handling-parsing](epics/file-handling-parsing.md) — File Handling & Parsing
 - [ ] [ui-shell-navigation](epics/ui-shell-navigation.md) — UI Shell & Navigation
 - [ ] [dashboard-summary](epics/dashboard-summary.md) — Dashboard Summary
 - [ ] [interactive-map](epics/interactive-map.md) — Interactive Map
