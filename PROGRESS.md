@@ -230,3 +230,17 @@ Each entry should include:
   - `epics/dashboard-summary.md` — marked story as done
   - `BACKLOG.md` — marked UI Shell & Navigation and Dashboard Summary epics as done
 - **Issues:** None
+
+## Color route by metric
+- **Completed:** 2026-03-01 19:00 UTC
+- **Epic:** Interactive Map
+- **Summary:** Added metric-based route coloring to the MapLibre map using `line-gradient` expressions. Created `MapControls.tsx` with a dropdown selector (Pace, Heart Rate, Elevation, Cadence, None) and a color legend showing a green-to-red gradient bar with formatted min/max values. Default coloring is by pace. Created `src/lib/map-colors.ts` with gradient builder, HSL-to-hex color conversion, and metric range calculation utilities. Refactored `RunMap.tsx` to use a two-effect pattern: one for map lifecycle, one for route coloring updates.
+- **Changes:**
+  - `src/lib/map-colors.ts` — new file with gradient builder, color conversion, and metric range utilities
+  - `src/components/map/MapControls.tsx` — new component with metric selector dropdown and color legend
+  - `src/components/map/RunMap.tsx` — refactored to support line-gradient coloring with two-effect pattern
+  - `src/store/useRunStore.ts` — added `MapMetric` type, `mapMetric` state, and `setMapMetric` action
+  - `src/components/dashboard/DashboardLayout.tsx` — integrated MapControls above RunMap in Map tab
+  - `e2e/map-controls.spec.ts` — 9 new E2E tests covering selector, legend, metric switching, unit system, and rendering
+  - `epics/interactive-map.md` — marked story as done
+- **Issues:** None

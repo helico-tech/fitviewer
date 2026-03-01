@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { SummaryCards } from "@/components/dashboard/SummaryCards"
 import { RunHeader } from "@/components/dashboard/RunHeader"
 import { RunMap } from "@/components/map/RunMap"
+import { MapControls } from "@/components/map/MapControls"
 import {
   LayoutDashboard,
   Map,
@@ -74,7 +75,10 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
             <OverviewTab />
           </TabsContent>
           <TabsContent value="map" data-testid="tab-content-map">
-            <RunMap />
+            <div className="space-y-3">
+              <MapControls />
+              <RunMap />
+            </div>
           </TabsContent>
           <TabsContent value="charts" data-testid="tab-content-charts">
             <StubTab title="Charts" />

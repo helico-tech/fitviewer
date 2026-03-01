@@ -23,7 +23,7 @@ Display the GPS route on an interactive map with metric-based coloring and synch
 - **Technical Notes:** Convert DataPoint lat/lon to GeoJSON LineString. Use `map.fitBounds()` for auto-fit.
 
 ## Story: Color route by metric
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Render route polyline on MapLibre
 

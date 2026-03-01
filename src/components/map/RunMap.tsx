@@ -1,17 +1,21 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import maplibregl from "maplibre-gl"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { useRunStore } from "@/store/useRunStore"
+import { buildLineGradient } from "@/lib/map-colors"
 
 export function RunMap() {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<maplibregl.Map | null>(null)
   const records = useRunStore((state) => state.runData?.records)
+  const mapMetric = useRunStore((state) => state.mapMetric)
+  const [mapLoaded, setMapLoaded] = useState(false)
 
-  useEffect(() => {
-    if (!mapContainerRef.current || !records || records.length === 0) return
+  // Filter and prepare coordinates (stable across metric changes)
+  const { validRecords, coordinates, bounds } = useMemo(() => {
+    if (!records || records.length === 0)
+      return { validRecords: [], coordinates: [] as [number, number][], bounds: null }
 
-    // Filter out records with invalid coordinates
     const validRecords = records.filter(
       (r) =>
         r.lat != null &&
@@ -19,17 +23,14 @@ export function RunMap() {
         isFinite(r.lat) &&
         isFinite(r.lon) &&
         r.lat !== 0 &&
-        r.lon !== 0
+        r.lon !== 0,
     )
 
-    if (validRecords.length === 0) return
+    if (validRecords.length === 0)
+      return { validRecords: [], coordinates: [] as [number, number][], bounds: null }
 
-    const coordinates: [number, number][] = validRecords.map((r) => [
-      r.lon,
-      r.lat,
-    ])
+    const coordinates: [number, number][] = validRecords.map((r) => [r.lon, r.lat])
 
-    // Compute bounds
     let minLon = Infinity
     let maxLon = -Infinity
     let minLat = Infinity
@@ -41,10 +42,14 @@ export function RunMap() {
       if (lat > maxLat) maxLat = lat
     }
 
-    const bounds = new maplibregl.LngLatBounds(
-      [minLon, minLat],
-      [maxLon, maxLat]
-    )
+    const bounds = new maplibregl.LngLatBounds([minLon, minLat], [maxLon, maxLat])
+
+    return { validRecords, coordinates, bounds }
+  }, [records])
+
+  // Create/destroy map when data changes
+  useEffect(() => {
+    if (!mapContainerRef.current || !coordinates.length || !bounds) return
 
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
@@ -56,31 +61,7 @@ export function RunMap() {
     map.addControl(new maplibregl.NavigationControl(), "top-right")
 
     map.on("load", () => {
-      map.addSource("route", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates,
-          },
-        },
-      })
-
-      map.addLayer({
-        id: "route-line",
-        type: "line",
-        source: "route",
-        layout: {
-          "line-join": "round",
-          "line-cap": "round",
-        },
-        paint: {
-          "line-color": "#3b82f6",
-          "line-width": 4,
-        },
-      })
+      setMapLoaded(true)
     })
 
     mapRef.current = map
@@ -88,8 +69,49 @@ export function RunMap() {
     return () => {
       map.remove()
       mapRef.current = null
+      setMapLoaded(false)
     }
-  }, [records])
+  }, [coordinates, bounds])
+
+  // Add/update route coloring when map loads or metric changes
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !mapLoaded || !coordinates.length) return
+
+    // Remove existing route layer and source
+    if (map.getLayer("route-line")) map.removeLayer("route-line")
+    if (map.getSource("route")) map.removeSource("route")
+
+    const gradient = buildLineGradient(validRecords, coordinates, mapMetric)
+
+    map.addSource("route", {
+      type: "geojson",
+      lineMetrics: true,
+      data: {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "LineString",
+          coordinates,
+        },
+      },
+    })
+
+    const paint = gradient
+      ? { "line-width": 4, "line-gradient": gradient as any }
+      : { "line-color": "#3b82f6", "line-width": 4 }
+
+    map.addLayer({
+      id: "route-line",
+      type: "line",
+      source: "route",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint,
+    })
+  }, [mapLoaded, coordinates, validRecords, mapMetric])
 
   return (
     <div
