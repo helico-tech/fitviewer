@@ -22,7 +22,7 @@ Allow users to configure HR zones and visualize time distribution across zones.
 - Zones have standard colors (gray, blue, green, orange, red)
 
 ## Story: Build zone distribution bar and time table
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Implement zone configuration
 
