@@ -124,3 +124,18 @@ Each entry should include:
   - `src/App.tsx` — replaced DashboardPlaceholder with DashboardLayout
   - `e2e/tabs.spec.ts` — 8 new E2E tests for tab navigation
 - **Issues:** None
+
+## Add parse error handling
+- **Completed:** 2026-03-01 12:30 UTC
+- **Epic:** File Handling & Parsing
+- **Summary:** Implemented user-friendly error handling for corrupt files, non-FIT files, and files with no run data. Non-FIT files now show "This doesn't appear to be a FIT file" inline on the drop zone. Corrupt FIT files show "This file appears to be corrupted". All errors display as dismissible inline alerts (shadcn Alert component) on the drop zone, replacing the previous toast-based approach. Added a 30-second timeout to the parser wrapper to handle cases where the FIT parser hangs on invalid data. Error state clears automatically when the user tries a new file.
+- **Changes:**
+  - `src/workers/fit-parser.worker.ts` — added `classifyParseError()` to map parser exceptions to friendly messages
+  - `src/lib/fit-parser.ts` — added 30-second timeout with `settled` flag to prevent parser hangs
+  - `src/components/file/DropZone.tsx` — replaced toast errors with inline Alert component; accepts `error` and `onDismissError` props; clears errors on new file attempts
+  - `src/App.tsx` — passes store error and dismiss handler to DropZone; removed toast-based error handling
+  - `src/components/ui/alert.tsx` — installed shadcn Alert component
+  - `e2e/parse-errors.spec.ts` — 5 new E2E tests covering non-FIT files, corrupt files, dismissibility, error clearing, and retry flow
+  - `e2e/dropzone.spec.ts` — updated existing test for new inline error UI
+  - `e2e/wiring.spec.ts` — updated corrupt file test to check inline error instead of toast
+- **Issues:** Discovered that `fit-file-parser` with `force: true` can hang indefinitely on certain binary data patterns, requiring the timeout safeguard.

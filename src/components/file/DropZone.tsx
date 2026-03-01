@@ -1,15 +1,18 @@
 import { useCallback, useRef, useState } from "react"
-import { Upload, FileWarning } from "lucide-react"
-import { toast } from "sonner"
+import { Upload, FileWarning, AlertCircle, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 interface DropZoneProps {
   onFileAccepted: (file: File) => void
+  error?: string | null
+  onDismissError?: () => void
 }
 
-export function DropZone({ onFileAccepted }: DropZoneProps) {
+export function DropZone({ onFileAccepted, error, onDismissError }: DropZoneProps) {
   const [isDragOver, setIsDragOver] = useState(false)
+  const [fileError, setFileError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const isFitFile = (file: File): boolean => {
@@ -18,16 +21,26 @@ export function DropZone({ onFileAccepted }: DropZoneProps) {
 
   const handleFile = useCallback(
     (file: File) => {
+      // Clear any previous file-level error when user tries a new file
+      setFileError(null)
+      onDismissError?.()
+
       if (isFitFile(file)) {
         onFileAccepted(file)
       } else {
-        toast.error("Invalid file type", {
-          description: "Please select a .fit file from your GPS watch.",
-        })
+        setFileError("This doesn't appear to be a FIT file")
       }
     },
-    [onFileAccepted]
+    [onFileAccepted, onDismissError]
   )
+
+  const dismissError = useCallback(() => {
+    setFileError(null)
+    onDismissError?.()
+  }, [onDismissError])
+
+  // Show local file error (wrong extension) or store error (parse failure)
+  const displayError = fileError || error || null
 
   const handleDragOver = useCallback(
     (e: React.DragEvent) => {
@@ -120,6 +133,21 @@ export function DropZone({ onFileAccepted }: DropZoneProps) {
               Supports .fit files from Garmin, Wahoo, COROS, and other GPS watches
             </p>
           </div>
+
+          {(displayError) && (
+            <Alert variant="destructive" className="w-full max-w-xs" data-testid="parse-error">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle className="pr-6">Error</AlertTitle>
+              <AlertDescription>{displayError}</AlertDescription>
+              <button
+                onClick={dismissError}
+                className="absolute top-3 right-3 text-destructive-foreground/50 hover:text-destructive-foreground"
+                aria-label="Dismiss error"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </Alert>
+          )}
 
           <input
             ref={fileInputRef}

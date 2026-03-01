@@ -1,6 +1,5 @@
-import { useEffect } from "react"
+import { useCallback } from "react"
 import { Toaster } from "@/components/ui/sonner"
-import { toast } from "sonner"
 import { DropZone } from "@/components/file/DropZone"
 import { LoadingState } from "@/components/file/LoadingState"
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout"
@@ -9,17 +8,9 @@ import { useRunStore } from "@/store/useRunStore"
 function App() {
   const { runData, isLoading, error, loadFile, reset } = useRunStore()
 
-  useEffect(() => {
-    if (error) {
-      toast.error("Failed to load file", {
-        description: error,
-        action: {
-          label: "Dismiss",
-          onClick: () => reset(),
-        },
-      })
-    }
-  }, [error, reset])
+  const clearError = useCallback(() => {
+    useRunStore.setState({ error: null })
+  }, [])
 
   let content
   if (isLoading) {
@@ -27,7 +18,13 @@ function App() {
   } else if (runData) {
     content = <DashboardLayout onLoadNew={reset} />
   } else {
-    content = <DropZone onFileAccepted={loadFile} />
+    content = (
+      <DropZone
+        onFileAccepted={loadFile}
+        error={error}
+        onDismissError={clearError}
+      />
+    )
   }
 
   return (

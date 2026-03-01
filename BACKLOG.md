@@ -113,7 +113,7 @@ Implement the file drop zone, FIT file parsing in a Web Worker, and error handli
 - **Technical Notes:** Use the playwright-cli skill to verify the full flow: drop a sample .fit file, confirm loading state appears, confirm dashboard renders.
 
 ### Story: Add parse error handling
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** medium
 - **Depends on:** Wire up drop zone to parser and store
 - **Description:** Handle corrupt files, non-FIT files, and unsupported FIT file types with friendly error messages.

@@ -21,7 +21,7 @@ test.describe("File-to-dashboard wiring", () => {
     fs.unlinkSync(tmpFile)
   })
 
-  test("shows error toast when FIT parsing fails", async ({ page }) => {
+  test("shows inline error when FIT parsing fails with corrupt file", async ({ page }) => {
     await page.goto("/")
 
     // Create a fake .fit file that will fail parsing
@@ -31,8 +31,13 @@ test.describe("File-to-dashboard wiring", () => {
     const fileInput = page.locator('input[type="file"]')
     await fileInput.setInputFiles(tmpFile)
 
-    // Wait for error toast to appear
-    await expect(page.getByText("Failed to load file")).toBeVisible({ timeout: 10000 })
+    // Wait for inline error to appear on the drop zone
+    const errorAlert = page.getByTestId('parse-error')
+    await expect(errorAlert).toBeVisible({ timeout: 10000 })
+    await expect(errorAlert).toContainText("This file appears to be corrupted")
+
+    // Drop zone should still be visible (user can try again)
+    await expect(page.getByRole("button", { name: "Browse files" })).toBeVisible()
 
     fs.unlinkSync(tmpFile)
   })

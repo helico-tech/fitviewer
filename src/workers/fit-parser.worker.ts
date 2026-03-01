@@ -159,6 +159,12 @@ function buildSummary(
   };
 }
 
+function classifyParseError(_rawMessage: string): string {
+  // Any exception from the FIT parser means the file is corrupt or not a valid FIT binary.
+  // Specific "no data" cases are handled above before this catch block.
+  return "This file appears to be corrupted";
+}
+
 self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
   const { type, buffer } = event.data;
 
@@ -211,7 +217,9 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
 
     self.postMessage({ type: "success", data: result } satisfies WorkerSuccessResponse);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Failed to parse FIT file";
+    const rawMessage = err instanceof Error ? err.message : String(err);
+    // Classify the error for user-friendly messaging
+    const message = classifyParseError(rawMessage);
     self.postMessage({ type: "error", message } satisfies WorkerErrorResponse);
   }
 };

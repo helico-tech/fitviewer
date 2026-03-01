@@ -32,6 +32,8 @@ function hydrateRunData(serialized: SerializedRunData): RunData {
  * Runs the FIT parsing in a Web Worker to keep the UI responsive
  * for large files (1-5 MB).
  */
+const PARSE_TIMEOUT_MS = 30_000;
+
 export function parseFitFile(file: File): Promise<RunData> {
   return new Promise((resolve, reject) => {
     const worker = new Worker(
@@ -39,7 +41,21 @@ export function parseFitFile(file: File): Promise<RunData> {
       { type: "module" }
     );
 
+    let settled = false;
+
+    const timeout = setTimeout(() => {
+      if (!settled) {
+        settled = true;
+        worker.terminate();
+        reject(new Error("This file appears to be corrupted"));
+      }
+    }, PARSE_TIMEOUT_MS);
+
     worker.onmessage = (event: MessageEvent<WorkerResponse>) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+
       const response = event.data;
 
       if (response.type === "success") {
@@ -52,6 +68,9 @@ export function parseFitFile(file: File): Promise<RunData> {
     };
 
     worker.onerror = (error) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
       reject(new Error(error.message || "Worker failed unexpectedly"));
       worker.terminate();
     };
@@ -61,6 +80,12 @@ export function parseFitFile(file: File): Promise<RunData> {
         { type: "parse", buffer } satisfies WorkerRequest,
         [buffer] // Transfer the ArrayBuffer for zero-copy
       );
-    }).catch(reject);
+    }).catch((err) => {
+      if (!settled) {
+        settled = true;
+        clearTimeout(timeout);
+        reject(err);
+      }
+    });
   });
 }

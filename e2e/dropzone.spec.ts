@@ -23,7 +23,7 @@ test.describe('DropZone', () => {
     expect(fileChooser).toBeTruthy();
   });
 
-  test('shows error toast when non-.fit file is selected', async ({ page }) => {
+  test('shows inline error when non-.fit file is selected', async ({ page }) => {
     await page.goto('/');
 
     // Create a temporary non-fit file
@@ -33,9 +33,10 @@ test.describe('DropZone', () => {
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(tmpFile);
 
-    // Verify error toast appears
-    await expect(page.getByText('Invalid file type')).toBeVisible();
-    await expect(page.getByText('Please select a .fit file')).toBeVisible();
+    // Verify inline error alert appears
+    const errorAlert = page.getByTestId('parse-error');
+    await expect(errorAlert).toBeVisible();
+    await expect(errorAlert).toContainText("This doesn't appear to be a FIT file");
 
     // Cleanup
     fs.unlinkSync(tmpFile);
