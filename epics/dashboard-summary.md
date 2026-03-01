@@ -20,7 +20,7 @@ Display key run statistics in summary cards with unit toggling and run metadata.
 - Cards use shadcn Card with clear labels and large values
 
 ## Story: Add run header with title and date
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Build summary cards
 

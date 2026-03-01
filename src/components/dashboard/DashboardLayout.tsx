@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useRunStore } from "@/store/useRunStore"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SummaryCards } from "@/components/dashboard/SummaryCards"
+import { RunHeader } from "@/components/dashboard/RunHeader"
 import {
   LayoutDashboard,
   Map,
@@ -13,17 +13,6 @@ import {
 
 interface DashboardLayoutProps {
   onLoadNew: () => void
-}
-
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(date)
 }
 
 function OverviewTab() {
@@ -53,20 +42,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
     <div className="min-h-screen bg-background" data-testid="dashboard">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
         {/* Run header */}
-        <div
-          className="flex items-center justify-between gap-4"
-          data-testid="run-header"
-        >
-          <div className="min-w-0">
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight truncate">Run Dashboard</h1>
-            <p className="text-sm sm:text-base text-muted-foreground" data-testid="run-date">
-              {formatDate(runData.summary.startTime)}
-            </p>
-          </div>
-          <Button variant="outline" onClick={onLoadNew} className="shrink-0">
-            Load new file
-          </Button>
-        </div>
+        <RunHeader onLoadNew={onLoadNew} />
 
         {/* Tab navigation */}
         <Tabs defaultValue="overview">

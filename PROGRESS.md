@@ -182,3 +182,14 @@ Each entry should include:
   - `e2e/summary-cards.spec.ts` — 12 new E2E tests covering all cards, formatting, missing data handling, and edge cases
   - `epics/dashboard-summary.md` — marked story as done
 - **Issues:** None
+
+## Add run header with title and date
+- **Completed:** 2026-03-01 15:30 UTC
+- **Epic:** Dashboard Summary
+- **Summary:** Extracted the run header into a dedicated `RunHeader.tsx` component displaying the run date formatted as "Saturday, March 1, 2026 — 7:32 AM" (date and time joined with an em dash), a "Run Dashboard" heading, and a "Load new file" button. The header reads from the Zustand store and is positioned above the tab navigation. Refactored DashboardLayout to use the new component, removing the inline header code and `formatDate` function.
+- **Changes:**
+  - `src/components/dashboard/RunHeader.tsx` — new component with formatted date (em dash separator), heading, and load new file button
+  - `src/components/dashboard/DashboardLayout.tsx` — replaced inline header with RunHeader component, removed formatDate function
+  - `e2e/run-header.spec.ts` — 5 new E2E tests covering date formatting, heading, load new file flow, header positioning, and different date inputs
+  - `epics/dashboard-summary.md` — marked story as done
+- **Issues:** None
