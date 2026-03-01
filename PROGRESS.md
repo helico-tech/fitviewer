@@ -269,3 +269,14 @@ Each entry should include:
   - `e2e/responsive.spec.ts` — updated stub tab test to use Splits tab instead of Charts
   - `epics/charts-graphs.md` — marked story as done
 - **Issues:** None
+
+## Build heart rate chart
+- **Completed:** 2026-03-01 22:00 UTC
+- **Epic:** Charts & Graphs
+- **Summary:** Created `HeartRateChart.tsx` using Recharts `LineChart` with heart rate (BPM) on the Y-axis and distance on the X-axis. Added HR zone background bands using `ReferenceArea` components — five zones (recovery through VO2max) colored as semi-transparent rectangles behind the line, calculated from the run's max heart rate. The chart uses the same smoothing (`rollingAverage` with window of 10) and unit system reactivity as the pace chart. Integrated below PaceChart in the Charts tab.
+- **Changes:**
+  - `src/components/charts/HeartRateChart.tsx` — new component with Recharts LineChart, HR zone bands via ReferenceArea, smoothed data, custom tooltip
+  - `src/components/dashboard/DashboardLayout.tsx` — added HeartRateChart below PaceChart in Charts tab
+  - `e2e/heart-rate-chart.spec.ts` — 10 new E2E tests covering rendering, axes, zone bands, zone labels, responsiveness, unit switching, tooltip, line rendering, and co-rendering with pace chart
+  - `epics/charts-graphs.md` — marked story as done
+- **Issues:** None

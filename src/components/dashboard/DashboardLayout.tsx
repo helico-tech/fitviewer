@@ -6,6 +6,7 @@ import { RunHeader } from "@/components/dashboard/RunHeader"
 import { RunMap } from "@/components/map/RunMap"
 import { MapControls } from "@/components/map/MapControls"
 import { PaceChart } from "@/components/charts/PaceChart"
+import { HeartRateChart } from "@/components/charts/HeartRateChart"
 import {
   LayoutDashboard,
   Map,
@@ -84,6 +85,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
           <TabsContent value="charts" data-testid="tab-content-charts">
             <div className="space-y-6">
               <PaceChart />
+              <HeartRateChart />
             </div>
           </TabsContent>
           <TabsContent value="splits" data-testid="tab-content-splits">
