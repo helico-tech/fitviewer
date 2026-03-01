@@ -3,7 +3,7 @@
 Display auto-splits and manual laps in tables with visual comparison.
 
 ## Story: Build auto splits table
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Build summary cards
 
