@@ -244,3 +244,14 @@ Each entry should include:
   - `e2e/map-controls.spec.ts` — 9 new E2E tests covering selector, legend, metric switching, unit system, and rendering
   - `epics/interactive-map.md` — marked story as done
 - **Issues:** None
+
+## Add start/finish markers and km markers
+- **Completed:** 2026-03-01 20:00 UTC
+- **Epic:** Interactive Map
+- **Summary:** Added start and finish markers to the MapLibre map as DOM markers — a green circle for start and a red square for finish, each with a popup on click. Created `src/lib/map-markers.ts` with `computeDistanceMarkers()` that interpolates GPS positions at each km (or mile) boundary along the route's cumulative distance. Distance markers render as numbered circles using a GeoJSON symbol layer with built-in collision detection (`text-allow-overlap: false`) to prevent clutter at low zoom levels. Markers respect the unit toggle, switching between km and mile spacing reactively.
+- **Changes:**
+  - `src/components/map/RunMap.tsx` — added start/finish DOM markers, km/mile GeoJSON symbol layer, unit system reactivity
+  - `src/lib/map-markers.ts` — new file with `computeDistanceMarkers()` interpolation utility
+  - `e2e/map-markers.spec.ts` — 8 new E2E tests covering start/finish marker rendering, styles, popups, km markers, short routes, and unit switching
+  - `epics/interactive-map.md` — marked story as done
+- **Issues:** None

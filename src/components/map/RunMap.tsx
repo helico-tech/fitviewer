@@ -3,12 +3,18 @@ import maplibregl from "maplibre-gl"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { useRunStore } from "@/store/useRunStore"
 import { buildLineGradient } from "@/lib/map-colors"
+import { computeDistanceMarkers } from "@/lib/map-markers"
+
+const METERS_PER_KM = 1000
+const METERS_PER_MILE = 1609.34
 
 export function RunMap() {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<maplibregl.Map | null>(null)
+  const markersRef = useRef<maplibregl.Marker[]>([])
   const records = useRunStore((state) => state.runData?.records)
   const mapMetric = useRunStore((state) => state.mapMetric)
+  const unitSystem = useRunStore((state) => state.unitSystem)
   const [mapLoaded, setMapLoaded] = useState(false)
 
   // Filter and prepare coordinates (stable across metric changes)
@@ -67,6 +73,8 @@ export function RunMap() {
     mapRef.current = map
 
     return () => {
+      markersRef.current.forEach((m) => m.remove())
+      markersRef.current = []
       map.remove()
       mapRef.current = null
       setMapLoaded(false)
@@ -112,6 +120,101 @@ export function RunMap() {
       paint,
     })
   }, [mapLoaded, coordinates, validRecords, mapMetric])
+
+  // Add start/finish markers and distance markers
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !mapLoaded || validRecords.length === 0) return
+
+    // Remove previous markers
+    markersRef.current.forEach((m) => m.remove())
+    markersRef.current = []
+
+    // Remove previous km marker layers/source
+    if (map.getLayer("km-markers-text")) map.removeLayer("km-markers-text")
+    if (map.getLayer("km-markers-circle")) map.removeLayer("km-markers-circle")
+    if (map.getSource("km-markers")) map.removeSource("km-markers")
+
+    const start = validRecords[0]
+    const finish = validRecords[validRecords.length - 1]
+
+    // Start marker (green circle)
+    const startEl = document.createElement("div")
+    startEl.className = "start-marker"
+    startEl.setAttribute("data-testid", "start-marker")
+    startEl.style.cssText =
+      "width:16px;height:16px;border-radius:50%;background:#22c55e;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer;"
+    const startMarker = new maplibregl.Marker({ element: startEl })
+      .setLngLat([start.lon, start.lat])
+      .setPopup(new maplibregl.Popup({ offset: 10 }).setText("Start"))
+      .addTo(map)
+    markersRef.current.push(startMarker)
+
+    // Finish marker (red square / checkered flag style)
+    const finishEl = document.createElement("div")
+    finishEl.className = "finish-marker"
+    finishEl.setAttribute("data-testid", "finish-marker")
+    finishEl.style.cssText =
+      "width:16px;height:16px;border-radius:2px;background:#ef4444;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer;"
+    const finishMarker = new maplibregl.Marker({ element: finishEl })
+      .setLngLat([finish.lon, finish.lat])
+      .setPopup(new maplibregl.Popup({ offset: 10 }).setText("Finish"))
+      .addTo(map)
+    markersRef.current.push(finishMarker)
+
+    // Distance markers (km or mile)
+    const interval = unitSystem === "imperial" ? METERS_PER_MILE : METERS_PER_KM
+    const distanceMarkers = computeDistanceMarkers(validRecords, interval)
+
+    if (distanceMarkers.length > 0) {
+      const features = distanceMarkers.map((dm) => ({
+        type: "Feature" as const,
+        properties: { label: String(dm.number) },
+        geometry: {
+          type: "Point" as const,
+          coordinates: [dm.lon, dm.lat],
+        },
+      }))
+
+      map.addSource("km-markers", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features,
+        },
+      })
+
+      // White circle background
+      map.addLayer({
+        id: "km-markers-circle",
+        type: "circle",
+        source: "km-markers",
+        paint: {
+          "circle-radius": 10,
+          "circle-color": "#ffffff",
+          "circle-stroke-color": "#6b7280",
+          "circle-stroke-width": 1.5,
+        },
+      })
+
+      // Number label
+      map.addLayer({
+        id: "km-markers-text",
+        type: "symbol",
+        source: "km-markers",
+        layout: {
+          "text-field": ["get", "label"],
+          "text-size": 11,
+          "text-font": ["Open Sans Bold"],
+          "text-allow-overlap": false,
+          "icon-allow-overlap": false,
+        },
+        paint: {
+          "text-color": "#374151",
+        },
+      })
+    }
+  }, [mapLoaded, validRecords, unitSystem])
 
   return (
     <div
