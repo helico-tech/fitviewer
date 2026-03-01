@@ -217,3 +217,16 @@ Each entry should include:
   - `e2e/tabs.spec.ts` — updated Map tab test to check for run-map testid instead of stub text
   - `epics/interactive-map.md` — marked story as done
 - **Issues:** None
+
+## Add dark/light mode toggle
+- **Completed:** 2026-03-01 18:00 UTC
+- **Epic:** Dashboard Summary
+- **Summary:** Added a dark/light mode toggle button (Sun/Moon icons) in the RunHeader using shadcn's class-based theming. The toggle switches the `dark` class on `<html>`, which activates the pre-existing dark CSS variables for all shadcn components. Theme preference is persisted in localStorage and an inline script in `index.html` applies the theme before React renders to prevent flash of wrong theme. System `prefers-color-scheme` is respected as the default when no preference is stored.
+- **Changes:**
+  - `index.html` — added inline script to apply dark class from localStorage before render
+  - `src/components/dashboard/RunHeader.tsx` — added ThemeToggle component with Sun/Moon icons using `useSyncExternalStore` to track dark class
+  - `e2e/theme-toggle.spec.ts` — 7 new E2E tests covering toggle rendering, switching, persistence, reload, and dark mode styling
+  - `e2e/responsive.spec.ts` — fixed pre-existing broken test (Map tab no longer uses stub Card)
+  - `epics/dashboard-summary.md` — marked story as done
+  - `BACKLOG.md` — marked UI Shell & Navigation and Dashboard Summary epics as done
+- **Issues:** None

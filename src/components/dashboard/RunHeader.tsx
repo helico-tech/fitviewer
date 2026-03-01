@@ -1,5 +1,7 @@
+import { useCallback, useSyncExternalStore } from "react"
 import { useRunStore } from "@/store/useRunStore"
 import { Button } from "@/components/ui/button"
+import { Sun, Moon } from "lucide-react"
 import type { UnitSystem } from "@/lib/units"
 
 interface RunHeaderProps {
@@ -69,6 +71,41 @@ function UnitToggle() {
   )
 }
 
+function subscribeToTheme(callback: () => void) {
+  const observer = new MutationObserver(callback)
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  })
+  return () => observer.disconnect()
+}
+
+function getThemeSnapshot(): "dark" | "light" {
+  return document.documentElement.classList.contains("dark") ? "dark" : "light"
+}
+
+function ThemeToggle() {
+  const theme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot)
+
+  const toggle = useCallback(() => {
+    const next = theme === "dark" ? "light" : "dark"
+    document.documentElement.classList.toggle("dark", next === "dark")
+    localStorage.setItem("theme", next)
+  }, [theme])
+
+  return (
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={toggle}
+      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      data-testid="theme-toggle"
+    >
+      {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </Button>
+  )
+}
+
 export function RunHeader({ onLoadNew }: RunHeaderProps) {
   const summary = useRunStore((state) => state.runData?.summary)
 
@@ -92,6 +129,7 @@ export function RunHeader({ onLoadNew }: RunHeaderProps) {
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <UnitToggle />
+        <ThemeToggle />
         <Button variant="outline" onClick={onLoadNew}>
           Load new file
         </Button>

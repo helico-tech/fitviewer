@@ -11,8 +11,8 @@
 
 - [x] [project-setup](epics/project-setup.md) — Project Setup
 - [x] [file-handling-parsing](epics/file-handling-parsing.md) — File Handling & Parsing
-- [ ] [ui-shell-navigation](epics/ui-shell-navigation.md) — UI Shell & Navigation
-- [ ] [dashboard-summary](epics/dashboard-summary.md) — Dashboard Summary
+- [x] [ui-shell-navigation](epics/ui-shell-navigation.md) — UI Shell & Navigation
+- [x] [dashboard-summary](epics/dashboard-summary.md) — Dashboard Summary
 - [ ] [interactive-map](epics/interactive-map.md) — Interactive Map
 - [ ] [charts-graphs](epics/charts-graphs.md) — Charts & Graphs
 - [ ] [heart-rate-zone-analysis](epics/heart-rate-zone-analysis.md) — Heart Rate Zone Analysis
