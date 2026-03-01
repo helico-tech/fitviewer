@@ -24,6 +24,9 @@ interface RunStore {
   chartXAxis: ChartXAxis;
   smoothingWindow: number;
 
+  // Split highlight
+  selectedSplitIndex: number | null;
+
   // Zone config
   maxHR: number;
   zoneBoundaries: ZoneBoundary[];
@@ -36,6 +39,7 @@ interface RunStore {
   setMapMetric: (metric: MapMetric) => void;
   setChartXAxis: (axis: ChartXAxis) => void;
   setSmoothingWindow: (window: number) => void;
+  setSelectedSplitIndex: (index: number | null) => void;
   setMaxHR: (maxHR: number) => void;
   setZoneBoundaries: (boundaries: ZoneBoundary[]) => void;
 }
@@ -47,6 +51,7 @@ export const useRunStore = create<RunStore>((set) => ({
 
   unitSystem: "metric",
   hoveredIndex: null,
+  selectedSplitIndex: null,
   mapMetric: "pace" as MapMetric,
   chartXAxis: "distance" as ChartXAxis,
   smoothingWindow: 10,
@@ -70,7 +75,7 @@ export const useRunStore = create<RunStore>((set) => ({
   },
 
   reset: () => {
-    set({ runData: null, isLoading: false, error: null, hoveredIndex: null });
+    set({ runData: null, isLoading: false, error: null, hoveredIndex: null, selectedSplitIndex: null });
   },
 
   setUnitSystem: (unitSystem) => {
@@ -91,6 +96,10 @@ export const useRunStore = create<RunStore>((set) => ({
 
   setSmoothingWindow: (smoothingWindow) => {
     set({ smoothingWindow: Math.max(1, Math.min(30, smoothingWindow)) });
+  },
+
+  setSelectedSplitIndex: (selectedSplitIndex) => {
+    set({ selectedSplitIndex });
   },
 
   setMaxHR: (maxHR) => {

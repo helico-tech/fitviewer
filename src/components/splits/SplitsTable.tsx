@@ -40,6 +40,8 @@ function formatElevationChange(gain: number, loss: number, unit: UnitSystem): st
 export function SplitsTable() {
   const runData = useRunStore((state) => state.runData);
   const unitSystem = useRunStore((state) => state.unitSystem);
+  const selectedSplitIndex = useRunStore((state) => state.selectedSplitIndex);
+  const setSelectedSplitIndex = useRunStore((state) => state.setSelectedSplitIndex);
 
   const splits = useMemo(() => {
     if (!runData) return [];
@@ -76,8 +78,13 @@ export function SplitsTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {splits.map((split) => (
-                <TableRow key={split.number} data-testid={`split-row-${split.number}`}>
+              {splits.map((split, idx) => (
+                <TableRow
+                  key={split.number}
+                  data-testid={`split-row-${split.number}`}
+                  className={`cursor-pointer transition-colors ${selectedSplitIndex === idx ? "bg-accent" : "hover:bg-muted/50"}`}
+                  onClick={() => setSelectedSplitIndex(selectedSplitIndex === idx ? null : idx)}
+                >
                   <TableCell className="font-medium">{split.number}</TableCell>
                   <TableCell className="text-right tabular-nums">
                     {formatSplitDistance(split.distance, unitSystem)}

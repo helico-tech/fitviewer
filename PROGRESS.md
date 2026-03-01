@@ -405,3 +405,18 @@ Each entry should include:
   - `epics/splits-laps.md` — marked story as done
   - `BACKLOG.md` — marked Splits & Laps epic as done
 - **Issues:** None
+
+## Implement highlight split on map
+- **Completed:** 2026-03-01 08:00 UTC
+- **Epic:** Cross-Feature Integration & Polish
+- **Summary:** Implemented split-to-map highlighting: clicking a split row on the Splits tab highlights the corresponding route segment on the embedded map with a thick amber overlay and pans/zooms to fit the segment. Added `startIndex`/`endIndex` to the `Split` interface, `selectedSplitIndex` state to the Zustand store, and made split rows clickable with visual selection state. The map is embedded on the Splits tab so the highlight is immediately visible. Switching away from the Splits tab clears the selection via controlled tabs.
+- **Changes:**
+  - `src/lib/calculations.ts` — added `startIndex`/`endIndex` to `Split` interface and `buildSplit` return
+  - `src/store/useRunStore.ts` — added `selectedSplitIndex` state and `setSelectedSplitIndex` action
+  - `src/components/splits/SplitsTable.tsx` — made rows clickable with selected/hover styles
+  - `src/components/map/RunMap.tsx` — added highlight segment layer with amber color, pan/zoom to selected segment
+  - `src/components/dashboard/DashboardLayout.tsx` — controlled tabs with selection clear on tab switch, embedded RunMap on Splits tab
+  - `e2e/highlight-split.spec.ts` — 9 new E2E tests covering click, deselect, selection change, store state, tab clear, and map rendering
+  - `e2e/responsive.spec.ts` — fixed pre-existing ambiguous card selector in responsive test
+  - `epics/cross-feature-integration-polish.md` — marked story as done
+- **Issues:** None

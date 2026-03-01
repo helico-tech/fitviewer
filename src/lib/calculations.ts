@@ -3,6 +3,8 @@ import type { UnitSystem } from "@/lib/units";
 
 export interface Split {
   number: number;
+  startIndex: number; // index into records array
+  endIndex: number; // index into records array
   distance: number; // meters
   time: number; // seconds
   avgPace: number; // sec/km
@@ -89,6 +91,8 @@ function buildSplit(
 
   return {
     number,
+    startIndex: startIdx,
+    endIndex: endIdx,
     distance,
     time,
     avgPace,

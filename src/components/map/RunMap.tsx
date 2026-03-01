@@ -4,6 +4,7 @@ import "maplibre-gl/dist/maplibre-gl.css"
 import { useRunStore } from "@/store/useRunStore"
 import { buildLineGradient } from "@/lib/map-colors"
 import { computeDistanceMarkers } from "@/lib/map-markers"
+import { computeSplits } from "@/lib/calculations"
 
 const METERS_PER_KM = 1000
 const METERS_PER_MILE = 1609.34
@@ -16,6 +17,7 @@ export function RunMap() {
   const mapMetric = useRunStore((state) => state.mapMetric)
   const unitSystem = useRunStore((state) => state.unitSystem)
   const setHoveredIndex = useRunStore((state) => state.setHoveredIndex)
+  const selectedSplitIndex = useRunStore((state) => state.selectedSplitIndex)
   const [mapLoaded, setMapLoaded] = useState(false)
 
   // Filter and prepare coordinates (stable across metric changes)
@@ -316,6 +318,89 @@ export function RunMap() {
       if (marker) marker.remove()
     }
   }, [mapLoaded, records])
+
+  // Highlight selected split segment on the map
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !mapLoaded || !records || records.length < 2) return
+
+    // Remove previous highlight layer/source
+    if (map.getLayer("highlight-line")) map.removeLayer("highlight-line")
+    if (map.getSource("highlight")) map.removeSource("highlight")
+
+    if (selectedSplitIndex == null) return
+
+    const splits = computeSplits(records, unitSystem)
+    const split = splits[selectedSplitIndex]
+    if (!split) return
+
+    // Extract coordinates for the split segment from records
+    const segmentCoords: [number, number][] = []
+    for (let i = split.startIndex; i <= split.endIndex; i++) {
+      const r = records[i]
+      if (
+        r.lat != null &&
+        r.lon != null &&
+        isFinite(r.lat) &&
+        isFinite(r.lon) &&
+        r.lat !== 0 &&
+        r.lon !== 0
+      ) {
+        segmentCoords.push([r.lon, r.lat])
+      }
+    }
+
+    if (segmentCoords.length < 2) return
+
+    map.addSource("highlight", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "LineString",
+          coordinates: segmentCoords,
+        },
+      },
+    })
+
+    map.addLayer({
+      id: "highlight-line",
+      type: "line",
+      source: "highlight",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#f59e0b",
+        "line-width": 8,
+        "line-opacity": 0.8,
+      },
+    })
+
+    // Pan/zoom to the selected segment
+    let minLon = Infinity
+    let maxLon = -Infinity
+    let minLat = Infinity
+    let maxLat = -Infinity
+    for (const [lon, lat] of segmentCoords) {
+      if (lon < minLon) minLon = lon
+      if (lon > maxLon) maxLon = lon
+      if (lat < minLat) minLat = lat
+      if (lat > maxLat) maxLat = lat
+    }
+    const segmentBounds = new maplibregl.LngLatBounds(
+      [minLon, minLat],
+      [maxLon, maxLat],
+    )
+    map.fitBounds(segmentBounds, { padding: 80, maxZoom: 17 })
+
+    return () => {
+      if (map.getLayer("highlight-line")) map.removeLayer("highlight-line")
+      if (map.getSource("highlight")) map.removeSource("highlight")
+    }
+  }, [mapLoaded, selectedSplitIndex, records, unitSystem])
 
   return (
     <div

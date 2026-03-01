@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useRunStore } from "@/store/useRunStore"
 import { SummaryCards } from "@/components/dashboard/SummaryCards"
@@ -35,6 +36,15 @@ function OverviewTab() {
 
 export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
   const runData = useRunStore((state) => state.runData)
+  const setSelectedSplitIndex = useRunStore((state) => state.setSelectedSplitIndex)
+  const [activeTab, setActiveTab] = useState("overview")
+
+  const handleTabChange = useCallback((value: string) => {
+    if (activeTab === "splits" && value !== "splits") {
+      setSelectedSplitIndex(null)
+    }
+    setActiveTab(value)
+  }, [activeTab, setSelectedSplitIndex])
 
   if (!runData) return null
 
@@ -45,7 +55,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
         <RunHeader onLoadNew={onLoadNew} />
 
         {/* Tab navigation */}
-        <Tabs defaultValue="overview">
+        <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList className="w-full" data-testid="tab-list">
             <TabsTrigger value="overview" data-testid="tab-overview">
               <LayoutDashboard className="size-4" />
@@ -89,6 +99,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
           </TabsContent>
           <TabsContent value="splits" data-testid="tab-content-splits">
             <div className="space-y-6">
+              <RunMap />
               <SplitBarChart />
               <SplitsTable />
               <LapsTable />

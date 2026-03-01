@@ -112,8 +112,8 @@ test.describe("Responsive layout — Tablet (768px)", () => {
     await page.getByTestId("tab-splits").click()
     const tabContent = page.getByTestId("tab-content-splits")
     await expect(tabContent).toBeVisible()
-    // The card inside should be visible and take available width
-    await expect(tabContent.locator("[data-slot='card']")).toBeVisible()
+    // The splits table card should be visible and take available width
+    await expect(tabContent.locator("[data-testid='splits-table-card']")).toBeVisible()
   })
 })
 
