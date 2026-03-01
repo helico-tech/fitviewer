@@ -3,7 +3,7 @@
 Configure production builds and automated deployment to GitHub Pages.
 
 ## Story: Configure Vite production build
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Implement tab navigation layout
 

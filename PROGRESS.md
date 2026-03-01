@@ -442,3 +442,12 @@ Each entry should include:
   - `epics/cross-feature-integration-polish.md` — marked story as done
   - `BACKLOG.md` — marked Cross-Feature Integration & Polish epic as done
 - **Issues:** None
+
+## Configure Vite production build
+- **Completed:** 2026-03-01 12:45 UTC
+- **Epic:** Deployment & CI/CD
+- **Summary:** Configured Vite for production deployment to GitHub Pages. Set `base: '/fitviewer/'` for correct asset paths under the repo subpath. Added manual chunks for maplibre-gl and recharts to split large vendor libraries into separate bundles. Verified the Web Worker is bundled correctly, the build produces a self-contained `dist/` folder, and `npm run preview` serves all assets at the correct paths.
+- **Changes:**
+  - `vite.config.ts` — added `base: '/fitviewer/'` and `build.rollupOptions.output.manualChunks` for maplibre and recharts
+  - `epics/deployment-cicd.md` — marked story as done
+- **Issues:** None
