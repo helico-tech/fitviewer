@@ -54,7 +54,7 @@ Display key run statistics in summary cards with unit toggling and run metadata.
 - **Technical Notes:** Use the playwright-cli skill to verify toggling the unit switch updates displayed values.
 
 ## Story: Add dark/light mode toggle
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** medium
 - **Depends on:** Implement tab navigation layout
 
