@@ -42,7 +42,7 @@ Build time-series charts for pace, heart rate, elevation, and cadence with share
 - Chart applies the same smoothing as other charts
 
 ## Story: Build elevation profile and cadence chart
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Build pace chart
 
