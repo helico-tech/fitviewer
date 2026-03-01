@@ -1,21 +1,18 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useCallback } from "react"
+import { Toaster } from "@/components/ui/sonner"
+import { DropZone } from "@/components/file/DropZone"
 
 function App() {
+  const handleFileAccepted = useCallback((file: File) => {
+    // TODO: Wire up to Zustand store / parser in a future story
+    console.log("File accepted:", file.name, file.size)
+  }, [])
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <Card className="w-[380px]">
-        <CardHeader>
-          <CardTitle className="text-2xl">FitViewer</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <p className="text-sm text-muted-foreground">
-            Browser-based FIT file viewer for runners.
-          </p>
-          <Button>Get Started</Button>
-        </CardContent>
-      </Card>
-    </div>
+    <>
+      <DropZone onFileAccepted={handleFileAccepted} />
+      <Toaster />
+    </>
   )
 }
 

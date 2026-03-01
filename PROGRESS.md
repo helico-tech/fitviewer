@@ -72,3 +72,16 @@ Each entry should include:
   - `e2e/smoke.spec.ts` — three smoke tests verifying app renders correctly
   - `.gitignore` — added Playwright report/result directories
 - **Issues:** None
+
+## Build the drag-and-drop zone UI
+- **Completed:** 2026-03-01 10:00 UTC
+- **Epic:** File Handling & Parsing
+- **Summary:** Created the DropZone component as the full-page landing experience when no file is loaded. It supports drag-and-drop with visual feedback (border highlight, icon change), a file picker button filtered to `.fit` files, and toast notifications for rejected non-FIT files via sonner. Updated App.tsx to render the DropZone as the main view and updated E2E tests to cover the new UI.
+- **Changes:**
+  - `src/components/file/DropZone.tsx` — full-page drop zone with drag-drop support, file picker, and toast errors
+  - `src/components/ui/sonner.tsx` — installed sonner toast component (fixed for Vite, removed next-themes dependency)
+  - `src/App.tsx` — replaced smoke-test card with DropZone component and Toaster
+  - `e2e/smoke.spec.ts` — updated smoke tests for new DropZone UI
+  - `e2e/dropzone.spec.ts` — new test file for DropZone interactions (file input, browse button, error toast)
+  - `package.json` — added sonner dependency
+- **Issues:** None
