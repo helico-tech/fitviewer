@@ -255,3 +255,17 @@ Each entry should include:
   - `e2e/map-markers.spec.ts` — 8 new E2E tests covering start/finish marker rendering, styles, popups, km markers, short routes, and unit switching
   - `epics/interactive-map.md` — marked story as done
 - **Issues:** None
+
+## Build pace chart
+- **Completed:** 2026-03-01 21:00 UTC
+- **Epic:** Charts & Graphs
+- **Summary:** Created `PaceChart.tsx` using Recharts `LineChart` with distance on the X-axis and pace on the Y-axis (inverted so faster pace appears higher). Created `src/lib/smoothing.ts` with a `rollingAverage()` utility that applies a centered rolling window (default 10 data points) to smooth pace data. The chart respects the unit system toggle (km/mi), formats pace as M:SS, includes a styled tooltip, and is fully responsive via `ResponsiveContainer`.
+- **Changes:**
+  - `src/lib/smoothing.ts` — new file with `rollingAverage(data, windowSize)` utility
+  - `src/components/charts/PaceChart.tsx` — new component with Recharts LineChart, inverted Y-axis, smoothed data, custom tooltip
+  - `src/components/dashboard/DashboardLayout.tsx` — replaced Charts tab stub with PaceChart component
+  - `e2e/pace-chart.spec.ts` — 8 new E2E tests covering rendering, axes, Y-axis inversion, responsiveness, unit switching, tooltip, and line rendering
+  - `e2e/tabs.spec.ts` — updated Charts tab test for new PaceChart fallback text
+  - `e2e/responsive.spec.ts` — updated stub tab test to use Splits tab instead of Charts
+  - `epics/charts-graphs.md` — marked story as done
+- **Issues:** None

@@ -3,7 +3,7 @@
 Build time-series charts for pace, heart rate, elevation, and cadence with shared controls and synchronized hover.
 
 ## Story: Build pace chart
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Build summary cards
 

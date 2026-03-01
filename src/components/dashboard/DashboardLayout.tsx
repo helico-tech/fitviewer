@@ -5,6 +5,7 @@ import { SummaryCards } from "@/components/dashboard/SummaryCards"
 import { RunHeader } from "@/components/dashboard/RunHeader"
 import { RunMap } from "@/components/map/RunMap"
 import { MapControls } from "@/components/map/MapControls"
+import { PaceChart } from "@/components/charts/PaceChart"
 import {
   LayoutDashboard,
   Map,
@@ -81,7 +82,9 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
             </div>
           </TabsContent>
           <TabsContent value="charts" data-testid="tab-content-charts">
-            <StubTab title="Charts" />
+            <div className="space-y-6">
+              <PaceChart />
+            </div>
           </TabsContent>
           <TabsContent value="splits" data-testid="tab-content-splits">
             <StubTab title="Splits" />

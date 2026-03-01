@@ -70,7 +70,8 @@ test.describe("Tab navigation", () => {
   test("clicking Charts tab shows charts content", async ({ page }) => {
     await page.getByTestId("tab-charts").click()
     await expect(page.getByTestId("tab-content-charts")).toBeVisible()
-    await expect(page.getByText("Charts — coming soon")).toBeVisible()
+    // With empty records, the pace chart shows a fallback message
+    await expect(page.getByText("No pace data available")).toBeVisible()
   })
 
   test("clicking Splits tab shows splits content", async ({ page }) => {
