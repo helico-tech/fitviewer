@@ -88,7 +88,7 @@ Implement the file drop zone, FIT file parsing in a Web Worker, and error handli
 - **Technical Notes:** `fit-file-parser` returns raw objects — map fields like `position_lat`/`position_long` (semicircles) to decimal degrees. Speed (m/s) needs conversion to pace (sec/km).
 
 ### Story: Create Zustand store for run data
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Implement FIT file parsing in a Web Worker
 - **Description:** Create `src/store/useRunStore.ts` with Zustand to hold parsed run data, loading state, error state, and UI preferences (unit system, selected metric).

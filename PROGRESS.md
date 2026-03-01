@@ -94,3 +94,11 @@ Each entry should include:
   - `src/workers/fit-parser.worker.ts` — Web Worker with FIT parsing, field mapping, and error handling
   - `src/lib/fit-parser.ts` — Promise-based wrapper managing worker lifecycle, ArrayBuffer transfer, and Date hydration
 - **Issues:** None
+
+## Create Zustand store for run data
+- **Completed:** 2026-03-01 11:00 UTC
+- **Epic:** File Handling & Parsing
+- **Summary:** Created the Zustand store at `src/store/useRunStore.ts` to serve as the single source of truth for parsed run data and UI state. The store holds `runData`, `isLoading`, and `error` states, plus UI preferences (`unitSystem`, `hoveredIndex`). The `loadFile` action integrates with the existing `parseFitFile` wrapper, managing loading and error states throughout the parsing lifecycle.
+- **Changes:**
+  - `src/store/useRunStore.ts` — Zustand store with run data state, UI state, and actions (loadFile, reset, setUnitSystem, setHoveredIndex)
+- **Issues:** None
