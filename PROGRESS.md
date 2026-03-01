@@ -369,3 +369,16 @@ Each entry should include:
   - `epics/heart-rate-zone-analysis.md` — marked story as done
   - `BACKLOG.md` — marked Heart Rate Zone Analysis epic as done
 - **Issues:** None
+
+## Build auto splits table
+- **Completed:** 2026-03-01 05:00 UTC
+- **Epic:** Splits & Laps
+- **Summary:** Created the auto splits table that computes per-km (or per-mile) splits from record data based on cumulative distance crossing boundaries. Added `computeSplits()` and `buildSplit()` functions to `calculations.ts` that walk through records, detect km/mile boundary crossings, and compute pace, avg HR, avg cadence, elevation gain/loss, and time for each split. Created `SplitsTable.tsx` with shadcn Table displaying all seven columns, respecting the unit toggle for km/mi splits.
+- **Changes:**
+  - `src/lib/calculations.ts` — added `Split` interface, `computeSplits()`, and `buildSplit()` functions
+  - `src/components/splits/SplitsTable.tsx` — new component with shadcn Table, split formatting, and unit system reactivity
+  - `src/components/dashboard/DashboardLayout.tsx` — replaced Splits tab stub with SplitsTable, removed unused StubTab and Card imports
+  - `e2e/splits-table.spec.ts` — 12 new E2E tests covering table rendering, columns, formatting, unit switching, row counts, and empty data
+  - `e2e/tabs.spec.ts` — updated Splits tab test for new SplitsTable component
+  - `epics/splits-laps.md` — marked story as done
+- **Issues:** None

@@ -1,6 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useRunStore } from "@/store/useRunStore"
-import { Card, CardContent } from "@/components/ui/card"
 import { SummaryCards } from "@/components/dashboard/SummaryCards"
 import { RunHeader } from "@/components/dashboard/RunHeader"
 import { RunMap } from "@/components/map/RunMap"
@@ -11,6 +10,7 @@ import { ElevationChart } from "@/components/charts/ElevationChart"
 import { CadenceChart } from "@/components/charts/CadenceChart"
 import { ChartControls } from "@/components/charts/ChartControls"
 import { ZoneConfig } from "@/components/zones/ZoneConfig"
+import { SplitsTable } from "@/components/splits/SplitsTable"
 import {
   LayoutDashboard,
   Map,
@@ -28,16 +28,6 @@ function OverviewTab() {
     <div className="space-y-6">
       <SummaryCards />
     </div>
-  )
-}
-
-function StubTab({ title }: { title: string }) {
-  return (
-    <Card className="w-full">
-      <CardContent className="flex items-center justify-center py-16 sm:py-24">
-        <p className="text-muted-foreground text-lg">{title} — coming soon</p>
-      </CardContent>
-    </Card>
   )
 }
 
@@ -96,7 +86,9 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
             </div>
           </TabsContent>
           <TabsContent value="splits" data-testid="tab-content-splits">
-            <StubTab title="Splits" />
+            <div className="space-y-6">
+              <SplitsTable />
+            </div>
           </TabsContent>
           <TabsContent value="zones" data-testid="tab-content-zones">
             <ZoneConfig />

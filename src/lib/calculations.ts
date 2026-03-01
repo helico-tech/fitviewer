@@ -1,4 +1,103 @@
 import type { DataPoint } from "@/types/run";
+import type { UnitSystem } from "@/lib/units";
+
+export interface Split {
+  number: number;
+  distance: number; // meters
+  time: number; // seconds
+  avgPace: number; // sec/km
+  avgHeartRate: number; // bpm
+  avgCadence: number; // spm
+  elevationGain: number; // meters
+  elevationLoss: number; // meters
+}
+
+const METERS_PER_KM = 1000;
+const METERS_PER_MILE = 1609.344;
+
+/**
+ * Compute auto splits from record data based on cumulative distance
+ * crossing km or mile boundaries.
+ */
+export function computeSplits(
+  records: DataPoint[],
+  unitSystem: UnitSystem,
+): Split[] {
+  if (records.length < 2) return [];
+
+  const splitInterval = unitSystem === "metric" ? METERS_PER_KM : METERS_PER_MILE;
+  const splits: Split[] = [];
+
+  let splitStart = 0; // index of the start of current split
+  let nextBoundary = splitInterval;
+
+  for (let i = 1; i < records.length; i++) {
+    if (records[i].distance >= nextBoundary) {
+      splits.push(buildSplit(records, splitStart, i, splits.length + 1));
+      splitStart = i;
+      nextBoundary += splitInterval;
+    }
+  }
+
+  // Include the final partial split if there are remaining records
+  const lastIndex = records.length - 1;
+  if (splitStart < lastIndex) {
+    const remainingDistance = records[lastIndex].distance - records[splitStart].distance;
+    // Only include if the partial split covers at least 10% of the interval
+    if (remainingDistance >= splitInterval * 0.1) {
+      splits.push(buildSplit(records, splitStart, lastIndex, splits.length + 1));
+    }
+  }
+
+  return splits;
+}
+
+function buildSplit(
+  records: DataPoint[],
+  startIdx: number,
+  endIdx: number,
+  number: number,
+): Split {
+  const distance = records[endIdx].distance - records[startIdx].distance;
+  const time =
+    (records[endIdx].timestamp.getTime() - records[startIdx].timestamp.getTime()) / 1000;
+
+  let hrSum = 0;
+  let hrCount = 0;
+  let cadSum = 0;
+  let cadCount = 0;
+  let elevGain = 0;
+  let elevLoss = 0;
+
+  for (let i = startIdx; i <= endIdx; i++) {
+    if (records[i].heartRate > 0) {
+      hrSum += records[i].heartRate;
+      hrCount++;
+    }
+    if (records[i].cadence > 0) {
+      cadSum += records[i].cadence;
+      cadCount++;
+    }
+    if (i > startIdx) {
+      const diff = records[i].altitude - records[i - 1].altitude;
+      if (diff > 0) elevGain += diff;
+      else elevLoss += Math.abs(diff);
+    }
+  }
+
+  const avgPace = distance > 0 ? (time / distance) * 1000 : 0; // sec/km
+
+  return {
+    number,
+    distance,
+    time,
+    avgPace,
+    avgHeartRate: hrCount > 0 ? hrSum / hrCount : 0,
+    avgCadence: cadCount > 0 ? cadSum / cadCount : 0,
+    elevationGain: elevGain,
+    elevationLoss: elevLoss,
+  };
+}
 
 export interface HRZone {
   name: string;

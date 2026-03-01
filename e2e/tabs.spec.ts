@@ -77,7 +77,7 @@ test.describe("Tab navigation", () => {
   test("clicking Splits tab shows splits content", async ({ page }) => {
     await page.getByTestId("tab-splits").click()
     await expect(page.getByTestId("tab-content-splits")).toBeVisible()
-    await expect(page.getByText("Splits — coming soon")).toBeVisible()
+    await expect(page.getByTestId("splits-table-card")).toBeVisible()
   })
 
   test("clicking Zones tab shows zones content", async ({ page }) => {
