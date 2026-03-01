@@ -44,3 +44,20 @@ Each entry should include:
   - `eslint.config.js` — disabled react-refresh rule for shadcn ui components
   - `package.json` — added tailwindcss, @tailwindcss/vite, and shadcn dependencies
 - **Issues:** None
+
+## Create project directory structure and type definitions
+- **Completed:** 2026-03-01 09:15 UTC
+- **Epic:** Project Setup
+- **Summary:** Created the full directory structure per PROJECT.md with subdirectories for components (dashboard, map, charts, splits, zones, file), workers, store, and types. Defined all core TypeScript interfaces (RunData, RunSummary, DataPoint, Lap, Session) in `src/types/run.ts` matching the data model from PROJECT.md. Verified the project compiles without errors.
+- **Changes:**
+  - `src/components/dashboard/` — created directory
+  - `src/components/map/` — created directory
+  - `src/components/charts/` — created directory
+  - `src/components/splits/` — created directory
+  - `src/components/zones/` — created directory
+  - `src/components/file/` — created directory
+  - `src/workers/` — created directory
+  - `src/store/` — created directory
+  - `src/types/` — created directory
+  - `src/types/run.ts` — RunData, RunSummary, DataPoint, Lap, Session interfaces
+- **Issues:** None
