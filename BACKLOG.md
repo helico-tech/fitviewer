@@ -100,7 +100,7 @@ Implement the file drop zone, FIT file parsing in a Web Worker, and error handli
   - Store is typed with TypeScript
 
 ### Story: Wire up drop zone to parser and store
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Build the drag-and-drop zone UI, Create Zustand store for run data
 - **Description:** Connect the DropZone component to the Zustand store so dropping a file triggers parsing and transitions the app from empty state to dashboard.
