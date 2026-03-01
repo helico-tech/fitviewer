@@ -63,7 +63,7 @@ Initialize the project scaffolding, install dependencies, and configure the deve
 Implement the file drop zone, FIT file parsing in a Web Worker, and error handling so users can load their run data into the app.
 
 ### Story: Build the drag-and-drop zone UI
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Create project directory structure and type definitions
 - **Description:** Create a full-page `DropZone` component with drag-and-drop support and a file picker button. This is the landing page when no file is loaded.
