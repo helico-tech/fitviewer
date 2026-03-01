@@ -63,4 +63,4 @@ Stories in the backlog follow this structure:
 
 ## Project Context
 
-{{PROJECT_CONTEXT}}
+See @./PROJECT.md

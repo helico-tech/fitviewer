@@ -1,4 +1,4 @@
-# Backlog: {{PROJECT_NAME}}
+# Backlog: FIT viewer
 
 <!--
   This is your project backlog. Replace the placeholders below with your
