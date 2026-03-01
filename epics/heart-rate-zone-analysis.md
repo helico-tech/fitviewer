@@ -3,7 +3,7 @@
 Allow users to configure HR zones and visualize time distribution across zones.
 
 ## Story: Implement zone configuration
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Build heart rate chart
 
