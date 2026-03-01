@@ -280,3 +280,16 @@ Each entry should include:
   - `e2e/heart-rate-chart.spec.ts` — 10 new E2E tests covering rendering, axes, zone bands, zone labels, responsiveness, unit switching, tooltip, line rendering, and co-rendering with pace chart
   - `epics/charts-graphs.md` — marked story as done
 - **Issues:** None
+
+## Build elevation profile and cadence chart
+- **Completed:** 2026-03-01 23:00 UTC
+- **Epic:** Charts & Graphs
+- **Summary:** Created `ElevationChart.tsx` as a filled Recharts `AreaChart` with a green gradient fill showing altitude over distance, and `CadenceChart.tsx` as a Recharts `LineChart` showing cadence (spm) in purple over distance. Both charts share the same X-axis scale as pace and HR charts (distance in km or miles), apply rolling average smoothing (window of 10), support unit system reactivity (km/mi for distance, m/ft for elevation), and include styled tooltips. Integrated both charts below HeartRateChart in the Charts tab.
+- **Changes:**
+  - `src/components/charts/ElevationChart.tsx` — new component with Recharts AreaChart, gradient fill, smoothed altitude data, m/ft unit support
+  - `src/components/charts/CadenceChart.tsx` — new component with Recharts LineChart, smoothed cadence data, purple stroke
+  - `src/components/dashboard/DashboardLayout.tsx` — added ElevationChart and CadenceChart to Charts tab
+  - `e2e/elevation-chart.spec.ts` — 8 new E2E tests covering rendering, axes, area fill, responsiveness, unit switching, tooltip, and all-four-charts co-rendering
+  - `e2e/cadence-chart.spec.ts` — 7 new E2E tests covering rendering, axes, line path, responsiveness, unit switching, and tooltip
+  - `epics/charts-graphs.md` — marked story as done
+- **Issues:** None
