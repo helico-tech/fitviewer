@@ -23,15 +23,15 @@ Build the app shell with tab navigation, responsive layout, and loading/empty st
 - **Technical Notes:** Use the playwright-cli skill to verify tab switching renders the correct content area.
 
 ## Story: Implement responsive layout
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Implement tab navigation layout
 
 #### Tasks
-- [ ] Make dashboard layout responsive for desktop (1024px+) with full layout
-- [ ] Support tablet (768px-1023px) with stacked layout and full-width cards
-- [ ] Ensure no horizontal scrolling on tablet or desktop viewports
-- [ ] Make charts and map resize properly on window resize
+- [x] Make dashboard layout responsive for desktop (1024px+) with full layout
+- [x] Support tablet (768px-1023px) with stacked layout and full-width cards
+- [x] Ensure no horizontal scrolling on tablet or desktop viewports
+- [x] Make charts and map resize properly on window resize
 
 #### Acceptance Criteria
 - Desktop (1024px+): full layout with sidebar or wide cards

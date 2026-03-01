@@ -150,3 +150,15 @@ Each entry should include:
   - `src/App.tsx` — added `loadSample()` function that fetches sample.fit and passes it through `loadFile()`
   - `e2e/sample-loader.spec.ts` — 4 E2E tests for sample file loader feature
 - **Issues:** None
+
+## Implement responsive layout
+- **Completed:** 2026-03-01 14:00 UTC
+- **Epic:** UI Shell & Navigation
+- **Summary:** Made the dashboard layout fully responsive for desktop (1024px+) and tablet (768px-1023px) viewports. Desktop uses a 3-column summary card grid within a max-w-6xl container; tablet uses 2 columns with full-width cards. Tab labels show as icon-only on narrow screens and icon+text on wider viewports. Added `overflow-x-hidden` to prevent horizontal scrolling. All containers use `w-full` to ensure charts and map resize properly on window resize.
+- **Changes:**
+  - `src/components/dashboard/DashboardLayout.tsx` — responsive grid (`grid-cols-2 lg:grid-cols-3`), responsive padding/spacing, icon-only tab labels on small screens, truncated header
+  - `src/components/file/LoadingState.tsx` — responsive skeleton grid matching dashboard breakpoints, responsive padding
+  - `src/components/file/DropZone.tsx` — responsive padding for drop zone container
+  - `src/index.css` — added `overflow-x-hidden` to body to prevent horizontal scrolling
+  - `e2e/responsive.spec.ts` — 9 new E2E tests verifying desktop and tablet layouts, no horizontal scrolling, and drop zone responsiveness
+- **Issues:** None

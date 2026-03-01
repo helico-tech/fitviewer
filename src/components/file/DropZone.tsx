@@ -91,7 +91,7 @@ export function DropZone({ onFileAccepted, error, onDismissError, onLoadSample, 
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-6 bg-background"
+      className="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-background"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
