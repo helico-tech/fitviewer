@@ -22,7 +22,7 @@ Display auto-splits and manual laps in tables with visual comparison.
 - Table respects the unit toggle (km vs mile splits)
 
 ## Story: Build manual laps table
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Build auto splits table
 
