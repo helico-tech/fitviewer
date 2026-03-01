@@ -24,7 +24,7 @@ Build time-series charts for pace, heart rate, elevation, and cadence with share
 - **Technical Notes:** Create `src/lib/smoothing.ts` with `rollingAverage(data, windowSize)` utility.
 
 ## Story: Build heart rate chart
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Build pace chart
 
