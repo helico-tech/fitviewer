@@ -27,3 +27,20 @@ Each entry should include:
   - `eslint.config.js` — ESLint configuration
   - `.gitignore` — ignore node_modules, dist, etc.
 - **Issues:** None
+
+## Set up Tailwind CSS and shadcn/ui
+- **Completed:** 2026-03-01 09:00 UTC
+- **Epic:** Project Setup
+- **Summary:** Installed Tailwind CSS v4 with the `@tailwindcss/vite` plugin and initialized shadcn/ui with New York style and neutral color palette. Installed all 8 required base components (button, card, tabs, table, skeleton, dropdown-menu, slider, toggle). Created a smoke-test App.tsx that renders a shadcn Card with a Button using Tailwind utility classes. Configured Vite path alias for `@/` imports.
+- **Changes:**
+  - `vite.config.ts` — added Tailwind CSS plugin and `@/` path alias
+  - `tsconfig.json`, `tsconfig.app.json` — added `@/*` path mapping
+  - `src/index.css` — replaced with Tailwind import and shadcn CSS variables
+  - `src/App.tsx` — smoke-test page with shadcn Card and Button
+  - `src/App.css` — removed (replaced by Tailwind utilities)
+  - `src/components/ui/` — 8 shadcn components installed
+  - `src/lib/utils.ts` — shadcn `cn()` utility
+  - `components.json` — shadcn configuration
+  - `eslint.config.js` — disabled react-refresh rule for shadcn ui components
+  - `package.json` — added tailwindcss, @tailwindcss/vite, and shadcn dependencies
+- **Issues:** None
