@@ -205,3 +205,15 @@ Each entry should include:
   - `e2e/unit-toggle.spec.ts` — 6 new E2E tests covering default state, metric values, imperial conversion, toggle roundtrip, unaffected fields, and active button highlighting
   - `epics/dashboard-summary.md` — marked story as done
 - **Issues:** None
+
+## Render route polyline on MapLibre
+- **Completed:** 2026-03-01 17:00 UTC
+- **Epic:** Interactive Map
+- **Summary:** Created `RunMap.tsx` using MapLibre GL JS with OpenFreeMap tiles (no API key required). The component reads GPS records from the Zustand store, filters out invalid coordinates, draws the route as a blue GeoJSON LineString polyline, and auto-zooms to fit the entire route with padding. Includes navigation controls (zoom in/out, compass). Integrated into the Map tab in DashboardLayout, replacing the stub placeholder.
+- **Changes:**
+  - `src/components/map/RunMap.tsx` — new component with MapLibre map, route polyline, auto-fit bounds, and navigation controls
+  - `src/components/dashboard/DashboardLayout.tsx` — replaced Map tab StubTab with RunMap component
+  - `e2e/run-map.spec.ts` — 5 new E2E tests covering map container rendering, canvas initialization, navigation controls, no-GPS handling, and zoom interaction
+  - `e2e/tabs.spec.ts` — updated Map tab test to check for run-map testid instead of stub text
+  - `epics/interactive-map.md` — marked story as done
+- **Issues:** None

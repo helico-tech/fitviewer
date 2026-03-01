@@ -3,7 +3,7 @@
 Display the GPS route on an interactive map with metric-based coloring and synchronized hover.
 
 ## Story: Render route polyline on MapLibre
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Build summary cards
 

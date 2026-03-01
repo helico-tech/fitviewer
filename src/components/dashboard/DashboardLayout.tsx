@@ -3,6 +3,7 @@ import { useRunStore } from "@/store/useRunStore"
 import { Card, CardContent } from "@/components/ui/card"
 import { SummaryCards } from "@/components/dashboard/SummaryCards"
 import { RunHeader } from "@/components/dashboard/RunHeader"
+import { RunMap } from "@/components/map/RunMap"
 import {
   LayoutDashboard,
   Map,
@@ -73,7 +74,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
             <OverviewTab />
           </TabsContent>
           <TabsContent value="map" data-testid="tab-content-map">
-            <StubTab title="Map" />
+            <RunMap />
           </TabsContent>
           <TabsContent value="charts" data-testid="tab-content-charts">
             <StubTab title="Charts" />

@@ -64,7 +64,7 @@ test.describe("Tab navigation", () => {
   test("clicking Map tab shows map content", async ({ page }) => {
     await page.getByTestId("tab-map").click()
     await expect(page.getByTestId("tab-content-map")).toBeVisible()
-    await expect(page.getByText("Map — coming soon")).toBeVisible()
+    await expect(page.getByTestId("run-map")).toBeVisible()
   })
 
   test("clicking Charts tab shows charts content", async ({ page }) => {
