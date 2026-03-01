@@ -3,7 +3,7 @@
 Display key run statistics in summary cards with unit toggling and run metadata.
 
 ## Story: Build summary cards
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Implement tab navigation layout
 
