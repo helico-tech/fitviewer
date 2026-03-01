@@ -432,3 +432,13 @@ Each entry should include:
   - `e2e/lap-segments.spec.ts` — 10 new E2E tests covering overlay selector, mode switching, store state, boundary markers, and cleanup
   - `epics/cross-feature-integration-polish.md` — marked story as done
 - **Issues:** None
+
+## End-to-end UI testing with Playwright
+- **Completed:** 2026-03-01 10:00 UTC
+- **Epic:** Cross-Feature Integration & Polish
+- **Summary:** Created a comprehensive integration test suite (`e2e/integration.spec.ts`) with 10 tests that load the real sample FIT file via the "Try with sample data" button and verify the full pipeline end-to-end. Tests cover summary card rendering, all five tab navigation, unit system toggling, dark/light mode toggling, chart SVG rendering with data lines, MapLibre canvas rendering, splits table row counts, zone distribution display, chart controls, and split-to-map highlight interaction. All 242 tests (including 10 new) pass in CI-compatible headless mode.
+- **Changes:**
+  - `e2e/integration.spec.ts` — 10 new comprehensive integration tests using real sample file
+  - `epics/cross-feature-integration-polish.md` — marked story as done
+  - `BACKLOG.md` — marked Cross-Feature Integration & Polish epic as done
+- **Issues:** None

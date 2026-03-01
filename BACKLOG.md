@@ -17,5 +17,5 @@
 - [x] [charts-graphs](epics/charts-graphs.md) — Charts & Graphs
 - [x] [heart-rate-zone-analysis](epics/heart-rate-zone-analysis.md) — Heart Rate Zone Analysis
 - [x] [splits-laps](epics/splits-laps.md) — Splits & Laps
-- [ ] [cross-feature-integration-polish](epics/cross-feature-integration-polish.md) — Cross-Feature Integration & Polish
+- [x] [cross-feature-integration-polish](epics/cross-feature-integration-polish.md) — Cross-Feature Integration & Polish
 - [ ] [deployment-cicd](epics/deployment-cicd.md) — Deployment & CI/CD

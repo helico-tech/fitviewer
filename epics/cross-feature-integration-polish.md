@@ -35,7 +35,7 @@ Wire up cross-cutting interactions, synchronization, and visual polish across al
 - Toggling between auto splits and manual laps updates the map markers
 
 ## Story: End-to-end UI testing with Playwright
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Build zone distribution bar and time table, Add split comparison bar chart and best/worst badges, Implement crosshair sync across charts
 
