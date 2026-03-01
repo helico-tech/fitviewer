@@ -23,7 +23,7 @@ Build the app shell with tab navigation, responsive layout, and loading/empty st
 - **Technical Notes:** Use the playwright-cli skill to verify tab switching renders the correct content area.
 
 ## Story: Implement responsive layout
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Implement tab navigation layout
 
