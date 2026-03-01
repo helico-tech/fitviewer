@@ -309,3 +309,19 @@ Each entry should include:
   - `e2e/chart-controls.spec.ts` — 9 new E2E tests covering controls rendering, X-axis toggling, smoothing slider, clamping, tooltips, and state persistence
   - `epics/charts-graphs.md` — marked story as done
 - **Issues:** None
+
+## Implement map-chart hover sync
+- **Completed:** 2026-03-02 01:00 UTC
+- **Epic:** Interactive Map
+- **Summary:** Implemented bidirectional hover synchronization between the map and all four charts. Created `src/lib/chart-hover.ts` with a `useChartHover` hook that reads/writes `hoveredIndex` from the Zustand store. All four charts (Pace, HR, Elevation, Cadence) now show a dashed vertical `ReferenceLine` crosshair at the hovered data point when any chart or the map is hovered. The map shows a white/blue dot marker at the hovered GPS position via a Zustand subscription for imperative MapLibre marker updates. Hovering the route line on the map finds the nearest data point and sets `hoveredIndex`.
+- **Changes:**
+  - `src/lib/chart-hover.ts` — new `useChartHover` hook managing hover state via Zustand store
+  - `src/components/charts/PaceChart.tsx` — integrated useChartHover, added ReferenceLine crosshair
+  - `src/components/charts/HeartRateChart.tsx` — integrated useChartHover, added ReferenceLine crosshair
+  - `src/components/charts/ElevationChart.tsx` — integrated useChartHover, added ReferenceLine crosshair
+  - `src/components/charts/CadenceChart.tsx` — integrated useChartHover, added ReferenceLine crosshair
+  - `src/components/map/RunMap.tsx` — added route mousemove/mouseleave handlers, hover marker via store subscription
+  - `e2e/hover-sync.spec.ts` — 9 new E2E tests covering chart hover, map hover marker, crosshair sync, and smooth updates
+  - `epics/interactive-map.md` — marked story as done, marked epic as complete
+  - `BACKLOG.md` — marked Interactive Map epic as done
+- **Issues:** None

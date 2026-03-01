@@ -7,9 +7,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 import { useRunStore } from "@/store/useRunStore";
 import { rollingAverage } from "@/lib/smoothing";
+import { useChartHover } from "@/lib/chart-hover";
 
 interface ChartDataPoint {
   distanceKm: number;
@@ -43,6 +45,12 @@ export function CadenceChart() {
     }));
   }, [records, unitSystem, smoothingWindow, startTime]);
 
+  const isMetric = unitSystem === "metric";
+  const isTime = chartXAxis === "time";
+  const xKey = isTime ? "elapsedMin" : isMetric ? "distanceKm" : "distanceMi";
+
+  const { hoveredX, onMouseMove, onMouseLeave } = useChartHover(data, xKey);
+
   if (data.length === 0) {
     return (
       <div className="flex items-center justify-center h-64 text-muted-foreground">
@@ -51,9 +59,6 @@ export function CadenceChart() {
     );
   }
 
-  const isMetric = unitSystem === "metric";
-  const isTime = chartXAxis === "time";
-  const xKey = isTime ? "elapsedMin" : isMetric ? "distanceKm" : "distanceMi";
   const xLabel = isTime
     ? "Time (min)"
     : isMetric
@@ -70,7 +75,12 @@ export function CadenceChart() {
   return (
     <div data-testid="cadence-chart" className="w-full h-72 sm:h-80">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 5, right: 20, bottom: 20, left: 10 }}>
+        <LineChart
+          data={data}
+          margin={{ top: 5, right: 20, bottom: 20, left: 10 }}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
+        >
           <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
           <XAxis
             dataKey={xKey}
@@ -111,6 +121,15 @@ export function CadenceChart() {
               );
             }}
           />
+          {hoveredX != null && (
+            <ReferenceLine
+              x={hoveredX}
+              stroke="hsl(var(--foreground))"
+              strokeDasharray="3 3"
+              strokeOpacity={0.5}
+              className="hover-crosshair"
+            />
+          )}
           <Line
             type="monotone"
             dataKey="cadence"

@@ -58,7 +58,7 @@ Display the GPS route on an interactive map with metric-based coloring and synch
 - Markers don't overlap or clutter at high zoom levels
 
 ## Story: Implement map-chart hover sync
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Color route by metric
 

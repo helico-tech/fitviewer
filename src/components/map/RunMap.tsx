@@ -15,25 +15,34 @@ export function RunMap() {
   const records = useRunStore((state) => state.runData?.records)
   const mapMetric = useRunStore((state) => state.mapMetric)
   const unitSystem = useRunStore((state) => state.unitSystem)
+  const setHoveredIndex = useRunStore((state) => state.setHoveredIndex)
   const [mapLoaded, setMapLoaded] = useState(false)
 
   // Filter and prepare coordinates (stable across metric changes)
-  const { validRecords, coordinates, bounds } = useMemo(() => {
+  const { validRecords, validRecordIndices, coordinates, bounds } = useMemo(() => {
     if (!records || records.length === 0)
-      return { validRecords: [], coordinates: [] as [number, number][], bounds: null }
+      return { validRecords: [], validRecordIndices: [] as number[], coordinates: [] as [number, number][], bounds: null }
 
-    const validRecords = records.filter(
-      (r) =>
+    const validRecords: typeof records = []
+    const validRecordIndices: number[] = []
+
+    for (let i = 0; i < records.length; i++) {
+      const r = records[i]
+      if (
         r.lat != null &&
         r.lon != null &&
         isFinite(r.lat) &&
         isFinite(r.lon) &&
         r.lat !== 0 &&
-        r.lon !== 0,
-    )
+        r.lon !== 0
+      ) {
+        validRecords.push(r)
+        validRecordIndices.push(i)
+      }
+    }
 
     if (validRecords.length === 0)
-      return { validRecords: [], coordinates: [] as [number, number][], bounds: null }
+      return { validRecords: [], validRecordIndices: [] as number[], coordinates: [] as [number, number][], bounds: null }
 
     const coordinates: [number, number][] = validRecords.map((r) => [r.lon, r.lat])
 
@@ -50,7 +59,7 @@ export function RunMap() {
 
     const bounds = new maplibregl.LngLatBounds([minLon, minLat], [maxLon, maxLat])
 
-    return { validRecords, coordinates, bounds }
+    return { validRecords, validRecordIndices, coordinates, bounds }
   }, [records])
 
   // Create/destroy map when data changes
@@ -215,6 +224,98 @@ export function RunMap() {
       })
     }
   }, [mapLoaded, validRecords, unitSystem])
+
+  // Hover interaction: mousemove on route sets hoveredIndex
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !mapLoaded || validRecords.length === 0) return
+
+    const onRouteMouseMove = (e: maplibregl.MapMouseEvent) => {
+      const { lng, lat } = e.lngLat
+      let minDist = Infinity
+      let nearestIdx = 0
+      for (let i = 0; i < validRecords.length; i++) {
+        const dlng = validRecords[i].lon - lng
+        const dlat = validRecords[i].lat - lat
+        const d = dlng * dlng + dlat * dlat
+        if (d < minDist) {
+          minDist = d
+          nearestIdx = i
+        }
+      }
+      setHoveredIndex(validRecordIndices[nearestIdx])
+    }
+
+    const onRouteMouseLeave = () => {
+      setHoveredIndex(null)
+    }
+
+    const onRouteMouseEnter = () => {
+      map.getCanvas().style.cursor = "pointer"
+    }
+
+    const onRouteCursorLeave = () => {
+      map.getCanvas().style.cursor = ""
+    }
+
+    map.on("mousemove", "route-line", onRouteMouseMove)
+    map.on("mouseleave", "route-line", onRouteMouseLeave)
+    map.on("mouseenter", "route-line", onRouteMouseEnter)
+    map.on("mouseleave", "route-line", onRouteCursorLeave)
+
+    return () => {
+      map.off("mousemove", "route-line", onRouteMouseMove)
+      map.off("mouseleave", "route-line", onRouteMouseLeave)
+      map.off("mouseenter", "route-line", onRouteMouseEnter)
+      map.off("mouseleave", "route-line", onRouteCursorLeave)
+    }
+  }, [mapLoaded, validRecords, validRecordIndices, setHoveredIndex])
+
+  // Hover marker: imperatively update marker position from store
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !mapLoaded || !records) return
+
+    let marker: maplibregl.Marker | null = null
+
+    const unsub = useRunStore.subscribe((state) => {
+      const idx = state.hoveredIndex
+      if (idx != null && idx >= 0 && idx < records.length) {
+        const r = records[idx]
+        if (
+          r.lat != null &&
+          r.lon != null &&
+          isFinite(r.lat) &&
+          isFinite(r.lon) &&
+          r.lat !== 0 &&
+          r.lon !== 0
+        ) {
+          if (!marker) {
+            const el = document.createElement("div")
+            el.setAttribute("data-testid", "hover-marker")
+            el.style.cssText =
+              "width:12px;height:12px;border-radius:50%;background:white;border:2px solid #3b82f6;box-shadow:0 1px 4px rgba(0,0,0,0.3);pointer-events:none;"
+            marker = new maplibregl.Marker({ element: el })
+              .setLngLat([r.lon, r.lat])
+              .addTo(map)
+          } else {
+            marker.setLngLat([r.lon, r.lat])
+          }
+          return
+        }
+      }
+      // Clear marker
+      if (marker) {
+        marker.remove()
+        marker = null
+      }
+    })
+
+    return () => {
+      unsub()
+      if (marker) marker.remove()
+    }
+  }, [mapLoaded, records])
 
   return (
     <div

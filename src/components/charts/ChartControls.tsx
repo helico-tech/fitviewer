@@ -1,4 +1,4 @@
-import { useRunStore, type ChartXAxis } from "@/store/useRunStore"
+import { useRunStore } from "@/store/useRunStore"
 import { Slider } from "@/components/ui/slider"
 
 export function ChartControls() {

@@ -13,7 +13,7 @@
 - [x] [file-handling-parsing](epics/file-handling-parsing.md) — File Handling & Parsing
 - [x] [ui-shell-navigation](epics/ui-shell-navigation.md) — UI Shell & Navigation
 - [x] [dashboard-summary](epics/dashboard-summary.md) — Dashboard Summary
-- [ ] [interactive-map](epics/interactive-map.md) — Interactive Map
+- [x] [interactive-map](epics/interactive-map.md) — Interactive Map
 - [ ] [charts-graphs](epics/charts-graphs.md) — Charts & Graphs
 - [ ] [heart-rate-zone-analysis](epics/heart-rate-zone-analysis.md) — Heart Rate Zone Analysis
 - [ ] [splits-laps](epics/splits-laps.md) — Splits & Laps
