@@ -35,7 +35,7 @@ Display key run statistics in summary cards with unit toggling and run metadata.
 - Header is positioned above the tab navigation
 
 ## Story: Implement pace unit toggle
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Build summary cards
 

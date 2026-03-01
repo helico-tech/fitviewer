@@ -193,3 +193,15 @@ Each entry should include:
   - `e2e/run-header.spec.ts` — 5 new E2E tests covering date formatting, heading, load new file flow, header positioning, and different date inputs
   - `epics/dashboard-summary.md` — marked story as done
 - **Issues:** None
+
+## Implement pace unit toggle
+- **Completed:** 2026-03-01 16:00 UTC
+- **Epic:** Dashboard Summary
+- **Summary:** Created `src/lib/units.ts` with `formatPace()`, `formatDistance()`, `convertPace()`, and `formatElevation()` helpers supporting both metric and imperial unit systems. Added a km/mi toggle switch in the RunHeader component using a button-group style with aria radiogroup semantics. Refactored SummaryCards to use the centralized unit helpers and read the `unitSystem` from the Zustand store, so toggling instantly updates distance (km/mi), pace (/km vs /mi), and elevation (m/ft).
+- **Changes:**
+  - `src/lib/units.ts` — new file with formatPace, formatDistance, convertPace, formatElevation helpers
+  - `src/components/dashboard/RunHeader.tsx` — added UnitToggle component with km/mi buttons wired to Zustand store
+  - `src/components/dashboard/SummaryCards.tsx` — refactored to use centralized unit helpers from `units.ts` and read unitSystem from store
+  - `e2e/unit-toggle.spec.ts` — 6 new E2E tests covering default state, metric values, imperial conversion, toggle roundtrip, unaffected fields, and active button highlighting
+  - `epics/dashboard-summary.md` — marked story as done
+- **Issues:** None

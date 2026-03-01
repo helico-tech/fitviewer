@@ -1,5 +1,6 @@
 import { useRunStore } from "@/store/useRunStore"
 import { Button } from "@/components/ui/button"
+import type { UnitSystem } from "@/lib/units"
 
 interface RunHeaderProps {
   onLoadNew: () => void
@@ -19,6 +20,53 @@ function formatDate(date: Date): string {
   }).format(date)
 
   return `${datePart} — ${timePart}`
+}
+
+function UnitToggle() {
+  const unitSystem = useRunStore((state) => state.unitSystem)
+  const setUnitSystem = useRunStore((state) => state.setUnitSystem)
+
+  function handleToggle(unit: UnitSystem) {
+    setUnitSystem(unit)
+  }
+
+  return (
+    <div
+      className="inline-flex items-center rounded-md border border-input bg-background"
+      data-testid="unit-toggle"
+      role="radiogroup"
+      aria-label="Unit system"
+    >
+      <button
+        type="button"
+        role="radio"
+        aria-checked={unitSystem === "metric"}
+        className={`px-3 py-1.5 text-sm font-medium rounded-l-md transition-colors ${
+          unitSystem === "metric"
+            ? "bg-primary text-primary-foreground"
+            : "text-muted-foreground hover:text-foreground"
+        }`}
+        onClick={() => handleToggle("metric")}
+        data-testid="unit-km"
+      >
+        km
+      </button>
+      <button
+        type="button"
+        role="radio"
+        aria-checked={unitSystem === "imperial"}
+        className={`px-3 py-1.5 text-sm font-medium rounded-r-md transition-colors ${
+          unitSystem === "imperial"
+            ? "bg-primary text-primary-foreground"
+            : "text-muted-foreground hover:text-foreground"
+        }`}
+        onClick={() => handleToggle("imperial")}
+        data-testid="unit-mi"
+      >
+        mi
+      </button>
+    </div>
+  )
 }
 
 export function RunHeader({ onLoadNew }: RunHeaderProps) {
@@ -42,9 +90,12 @@ export function RunHeader({ onLoadNew }: RunHeaderProps) {
           {formatDate(summary.startTime)}
         </p>
       </div>
-      <Button variant="outline" onClick={onLoadNew} className="shrink-0">
-        Load new file
-      </Button>
+      <div className="flex items-center gap-2 shrink-0">
+        <UnitToggle />
+        <Button variant="outline" onClick={onLoadNew}>
+          Load new file
+        </Button>
+      </div>
     </div>
   )
 }
