@@ -85,3 +85,12 @@ Each entry should include:
   - `e2e/dropzone.spec.ts` — new test file for DropZone interactions (file input, browse button, error toast)
   - `package.json` — added sonner dependency
 - **Issues:** None
+
+## Implement FIT file parsing in a Web Worker
+- **Completed:** 2026-03-01 10:30 UTC
+- **Epic:** File Handling & Parsing
+- **Summary:** Created the FIT parsing Web Worker (`src/workers/fit-parser.worker.ts`) that receives an ArrayBuffer, parses it with `fit-file-parser`, and maps raw FIT fields to the RunData/DataPoint/Lap/Session interfaces. Created the parser wrapper (`src/lib/fit-parser.ts`) that provides a Promise-based API (`parseFitFile(file: File): Promise<RunData>`) managing the worker lifecycle with proper ArrayBuffer transfer. The worker handles field mapping including speed-to-pace conversion, cadence half-cycle doubling, stride length calculation, and lap type detection from `lap_trigger`.
+- **Changes:**
+  - `src/workers/fit-parser.worker.ts` — Web Worker with FIT parsing, field mapping, and error handling
+  - `src/lib/fit-parser.ts` — Promise-based wrapper managing worker lifecycle, ArrayBuffer transfer, and Date hydration
+- **Issues:** None
