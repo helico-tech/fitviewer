@@ -41,7 +41,7 @@ Display the GPS route on an interactive map with metric-based coloring and synch
 - Changing the metric re-renders the route colors smoothly
 
 ## Story: Add start/finish markers and km markers
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** medium
 - **Depends on:** Render route polyline on MapLibre
 
