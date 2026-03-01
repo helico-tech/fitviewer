@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
 import { DropZone } from "@/components/file/DropZone"
 import { LoadingState } from "@/components/file/LoadingState"
-import { DashboardPlaceholder } from "@/components/dashboard/DashboardPlaceholder"
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout"
 import { useRunStore } from "@/store/useRunStore"
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
   if (isLoading) {
     content = <LoadingState />
   } else if (runData) {
-    content = <DashboardPlaceholder onLoadNew={reset} />
+    content = <DashboardLayout onLoadNew={reset} />
   } else {
     content = <DropZone onFileAccepted={loadFile} />
   }

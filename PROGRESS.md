@@ -114,3 +114,13 @@ Each entry should include:
   - `src/store/useRunStore.ts` — exposed store on window in dev mode for E2E testing
   - `e2e/wiring.spec.ts` — 5 new E2E tests covering loading state, error toast, dashboard rendering, and "Load new file" flow
 - **Issues:** None
+
+## Implement tab navigation layout
+- **Completed:** 2026-03-01 12:00 UTC
+- **Epic:** UI Shell & Navigation
+- **Summary:** Created `DashboardLayout.tsx` with shadcn Tabs providing navigation between Overview, Map, Charts, Splits, and Zones views. The Overview tab contains the summary cards (moved from DashboardPlaceholder), while the remaining tabs render stub placeholders. A run header above the tabs shows the formatted run date/time and a "Load new file" button. Wrote 8 Playwright E2E tests verifying tab rendering, switching, content visibility, and header display.
+- **Changes:**
+  - `src/components/dashboard/DashboardLayout.tsx` — new component with shadcn Tabs, OverviewTab with summary cards, stub tabs, and run header
+  - `src/App.tsx` — replaced DashboardPlaceholder with DashboardLayout
+  - `e2e/tabs.spec.ts` — 8 new E2E tests for tab navigation
+- **Issues:** None

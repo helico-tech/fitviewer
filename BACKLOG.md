@@ -143,7 +143,7 @@ Implement the file drop zone, FIT file parsing in a Web Worker, and error handli
 Build the app shell with tab navigation, responsive layout, and loading/empty states that frame all content.
 
 ### Story: Implement tab navigation layout
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Wire up drop zone to parser and store
 - **Description:** Create `DashboardLayout.tsx` with shadcn Tabs component providing navigation between Overview, Map, Charts, Splits, and Zones views.
