@@ -382,3 +382,14 @@ Each entry should include:
   - `e2e/tabs.spec.ts` — updated Splits tab test for new SplitsTable component
   - `epics/splits-laps.md` — marked story as done
 - **Issues:** None
+
+## Build manual laps table
+- **Completed:** 2026-03-01 06:00 UTC
+- **Epic:** Splits & Laps
+- **Summary:** Created `LapsTable.tsx` component that renders laps from `runData.laps` in a shadcn Table with the same columns as the auto splits table (distance, pace, avg HR, avg cadence, elevation +/-, time). The component distinguishes between auto and manual laps with colored badges when both types exist, hides the type column when all laps are the same type, and shows a "No laps recorded" message when no laps are present. Elevation loss is computed from record altitude data using startIndex/endIndex.
+- **Changes:**
+  - `src/components/splits/LapsTable.tsx` — new component with lap table, type badges, elevation loss computation, and unit system reactivity
+  - `src/components/dashboard/DashboardLayout.tsx` — integrated LapsTable below SplitsTable in Splits tab
+  - `e2e/laps-table.spec.ts` — 12 new E2E tests covering rendering, columns, type badges, type column visibility, formatting, unit switching, and empty state
+  - `epics/splits-laps.md` — marked story as done
+- **Issues:** None

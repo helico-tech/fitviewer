@@ -11,6 +11,7 @@ import { CadenceChart } from "@/components/charts/CadenceChart"
 import { ChartControls } from "@/components/charts/ChartControls"
 import { ZoneConfig } from "@/components/zones/ZoneConfig"
 import { SplitsTable } from "@/components/splits/SplitsTable"
+import { LapsTable } from "@/components/splits/LapsTable"
 import {
   LayoutDashboard,
   Map,
@@ -88,6 +89,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
           <TabsContent value="splits" data-testid="tab-content-splits">
             <div className="space-y-6">
               <SplitsTable />
+              <LapsTable />
             </div>
           </TabsContent>
           <TabsContent value="zones" data-testid="tab-content-zones">
