@@ -12,7 +12,7 @@
 Initialize the project scaffolding, install dependencies, and configure the development toolchain so all subsequent epics have a working foundation.
 
 ### Story: Initialize Vite + React + TypeScript project
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Description:** Create the Vite project with React and TypeScript template, configure tsconfig, and install core dependencies (zustand, recharts, fit-file-parser, maplibre-gl).
 - **Acceptance Criteria:**
