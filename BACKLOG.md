@@ -34,7 +34,7 @@ Initialize the project scaffolding, install dependencies, and configure the deve
   - A smoke-test page renders a shadcn button with Tailwind styling
 
 ### Story: Create project directory structure and type definitions
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Set up Tailwind CSS and shadcn/ui
 - **Description:** Create the folder structure per PROJECT.md and define the core TypeScript interfaces (RunData, RunSummary, DataPoint, Lap) in `src/types/run.ts`.
