@@ -49,7 +49,10 @@ export function CadenceChart() {
   const isTime = chartXAxis === "time";
   const xKey = isTime ? "elapsedMin" : isMetric ? "distanceKm" : "distanceMi";
 
-  const { hoveredX, onMouseMove, onMouseLeave } = useChartHover(data, xKey);
+  const { hoveredX, hoveredPoint, onMouseMove, onMouseLeave } = useChartHover(data, xKey);
+
+  const crosshairLabel =
+    hoveredPoint ? `${Math.round(hoveredPoint.cadence)} spm` : "";
 
   if (data.length === 0) {
     return (
@@ -128,6 +131,13 @@ export function CadenceChart() {
               strokeDasharray="3 3"
               strokeOpacity={0.5}
               className="hover-crosshair"
+              label={{
+                value: crosshairLabel,
+                position: "insideTopRight",
+                fontSize: 11,
+                fill: "currentColor",
+                className: "crosshair-label",
+              }}
             />
           )}
           <Line

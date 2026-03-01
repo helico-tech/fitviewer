@@ -325,3 +325,18 @@ Each entry should include:
   - `epics/interactive-map.md` — marked story as done, marked epic as complete
   - `BACKLOG.md` — marked Interactive Map epic as done
 - **Issues:** None
+
+## Implement crosshair sync across charts
+- **Completed:** 2026-03-01 02:00 UTC
+- **Epic:** Charts & Graphs
+- **Summary:** Enhanced the chart crosshair system so that hovering any chart (or the map) shows a value label on all four charts at the hovered data point. Updated `useChartHover` hook to return the hovered data point, and added `label` props to each chart's `ReferenceLine` showing the metric value (pace as M:SS, HR in bpm, elevation in m/ft, cadence in spm). This completes the Charts & Graphs epic.
+- **Changes:**
+  - `src/lib/chart-hover.ts` — added generic type parameter and `hoveredPoint` return value
+  - `src/components/charts/PaceChart.tsx` — added crosshair label with pace value
+  - `src/components/charts/HeartRateChart.tsx` — added crosshair label with HR value
+  - `src/components/charts/ElevationChart.tsx` — added crosshair label with altitude value (m/ft)
+  - `src/components/charts/CadenceChart.tsx` — added crosshair label with cadence value
+  - `e2e/crosshair-labels.spec.ts` — 8 new E2E tests covering label rendering, metric values, clearing, updates, and imperial units
+  - `epics/charts-graphs.md` — marked story as done
+  - `BACKLOG.md` — marked Charts & Graphs epic as done
+- **Issues:** None

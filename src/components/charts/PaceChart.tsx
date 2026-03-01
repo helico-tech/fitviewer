@@ -50,7 +50,10 @@ export function PaceChart() {
   const isTime = chartXAxis === "time";
   const xKey = isTime ? "elapsedMin" : isMetric ? "distanceKm" : "distanceMi";
 
-  const { hoveredX, onMouseMove, onMouseLeave } = useChartHover(data, xKey);
+  const { hoveredX, hoveredPoint, onMouseMove, onMouseLeave } = useChartHover(data, xKey);
+
+  const crosshairLabel =
+    hoveredPoint ? formatPaceTick(hoveredPoint.pace) : "";
 
   if (data.length === 0) {
     return (
@@ -131,6 +134,13 @@ export function PaceChart() {
               strokeDasharray="3 3"
               strokeOpacity={0.5}
               className="hover-crosshair"
+              label={{
+                value: crosshairLabel,
+                position: "insideTopRight",
+                fontSize: 11,
+                fill: "currentColor",
+                className: "crosshair-label",
+              }}
             />
           )}
           <Line
