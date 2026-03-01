@@ -78,7 +78,7 @@ Build time-series charts for pace, heart rate, elevation, and cadence with share
 - **Technical Notes:** Use the playwright-cli skill to verify that toggling the X-axis updates all charts and that the smoothing slider visually affects chart lines.
 
 ## Story: Implement crosshair sync across charts
-- **Status:** [ ] todo
+- **Status:** [~] in-progress
 - **Priority:** high
 - **Depends on:** Add chart axis toggle and controls
 
