@@ -9,17 +9,8 @@ import {
   ZONE_COLORS,
   ZONE_NAMES,
 } from "@/lib/calculations";
-
-function formatTime(seconds: number): string {
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  if (mins >= 60) {
-    const hrs = Math.floor(mins / 60);
-    const remainMins = mins % 60;
-    return `${hrs}:${remainMins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  }
-  return `${mins}:${secs.toString().padStart(2, "0")}`;
-}
+import { ZoneDistribution } from "./ZoneDistribution";
+import { ZoneTimeTable } from "./ZoneTimeTable";
 
 export function ZoneConfig() {
   const records = useRunStore((s) => s.runData?.records);
@@ -95,80 +86,11 @@ export function ZoneConfig() {
         </CardContent>
       </Card>
 
-      {/* Zone distribution */}
+      {/* Zone distribution and time table */}
       {distribution.length > 0 && (
         <>
-          {/* Stacked bar */}
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">Zone Distribution</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div
-                className="flex h-8 rounded-md overflow-hidden"
-                data-testid="zone-distribution-bar"
-              >
-                {distribution.map((d, i) => (
-                  d.percentage > 0 && (
-                    <div
-                      key={i}
-                      className="flex items-center justify-center text-xs font-medium text-white"
-                      style={{
-                        width: `${d.percentage}%`,
-                        backgroundColor: d.zone.color,
-                        minWidth: d.percentage > 3 ? undefined : "2px",
-                      }}
-                      title={`${ZONE_NAMES[i]}: ${d.percentage.toFixed(1)}%`}
-                      data-testid={`zone-bar-${i + 1}`}
-                    >
-                      {d.percentage >= 8 ? `Z${i + 1}` : ""}
-                    </div>
-                  )
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Time table */}
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">Time in Zones</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <table className="w-full text-sm" data-testid="zone-time-table">
-                <thead>
-                  <tr className="text-muted-foreground border-b">
-                    <th className="text-left py-2 font-medium">Zone</th>
-                    <th className="text-right py-2 font-medium">HR Range</th>
-                    <th className="text-right py-2 font-medium">Time</th>
-                    <th className="text-right py-2 font-medium">%</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {distribution.map((d, i) => (
-                    <tr key={i} className="border-b last:border-0" data-testid={`zone-time-row-${i + 1}`}>
-                      <td className="py-2 flex items-center gap-2">
-                        <div
-                          className="w-2.5 h-2.5 rounded-full"
-                          style={{ backgroundColor: d.zone.color }}
-                        />
-                        {ZONE_NAMES[i]}
-                      </td>
-                      <td className="text-right py-2 tabular-nums text-muted-foreground">
-                        {d.zone.minBpm}–{d.zone.maxBpm} bpm
-                      </td>
-                      <td className="text-right py-2 tabular-nums">
-                        {formatTime(d.seconds)}
-                      </td>
-                      <td className="text-right py-2 tabular-nums">
-                        {d.percentage.toFixed(1)}%
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </CardContent>
-          </Card>
+          <ZoneDistribution distribution={distribution} />
+          <ZoneTimeTable distribution={distribution} />
         </>
       )}
     </div>

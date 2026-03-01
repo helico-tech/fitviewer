@@ -356,3 +356,16 @@ Each entry should include:
   - `e2e/tabs.spec.ts` — updated Zones tab test for new ZoneConfig component
   - `epics/heart-rate-zone-analysis.md` — marked story as done
 - **Issues:** None
+
+## Build zone distribution bar and time table
+- **Completed:** 2026-03-01 04:00 UTC
+- **Epic:** Heart Rate Zone Analysis
+- **Summary:** Extracted the zone distribution bar and time-in-zones table from ZoneConfig.tsx into dedicated `ZoneDistribution.tsx` and `ZoneTimeTable.tsx` components. ZoneDistribution renders a horizontal stacked bar chart with colored segments proportional to time in each HR zone, with labels for wide segments and percentage tooltips. ZoneTimeTable renders a table with zone name, HR range, time, and percentage columns. Both components reactively update when max HR or zone boundaries change. Completed the Heart Rate Zone Analysis epic.
+- **Changes:**
+  - `src/components/zones/ZoneDistribution.tsx` — new component with horizontal stacked bar chart
+  - `src/components/zones/ZoneTimeTable.tsx` — new component with zone time table
+  - `src/components/zones/ZoneConfig.tsx` — refactored to use ZoneDistribution and ZoneTimeTable components
+  - `e2e/zone-distribution.spec.ts` — 11 new E2E tests covering distribution bar rendering, colors, labels, tooltips, reactivity, table headers, zone rows, and max HR updates
+  - `epics/heart-rate-zone-analysis.md` — marked story as done
+  - `BACKLOG.md` — marked Heart Rate Zone Analysis epic as done
+- **Issues:** None
