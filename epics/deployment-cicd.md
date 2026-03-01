@@ -22,7 +22,7 @@ Configure production builds and automated deployment to GitHub Pages.
 - Preview with `npm run preview` works correctly
 
 ## Story: Set up GitHub Actions CI/CD
-- **Status:** [~] in-progress
+- **Status:** [x] done
 - **Priority:** high
 - **Depends on:** Configure Vite production build, End-to-end UI testing with Playwright
 

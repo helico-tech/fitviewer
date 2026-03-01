@@ -451,3 +451,13 @@ Each entry should include:
   - `vite.config.ts` — added `base: '/fitviewer/'` and `build.rollupOptions.output.manualChunks` for maplibre and recharts
   - `epics/deployment-cicd.md` — marked story as done
 - **Issues:** None
+
+## Set up GitHub Actions CI/CD
+- **Completed:** 2026-03-01 12:55 UTC
+- **Epic:** Deployment & CI/CD
+- **Summary:** Created `.github/workflows/deploy.yml` that triggers on push to `main`. The workflow installs dependencies, installs Playwright browsers, runs E2E tests in headless mode with `CI=true`, builds the production bundle, and deploys the `dist/` folder to the `gh-pages` branch using `peaceiris/actions-gh-pages@v4`. Playwright is already configured for CI (forbidOnly, retries, single worker, headless by default). This completes the entire backlog.
+- **Changes:**
+  - `.github/workflows/deploy.yml` — new CI/CD workflow with test, build, and deploy steps
+  - `epics/deployment-cicd.md` — marked story as done
+  - `BACKLOG.md` — marked Deployment & CI/CD epic as done
+- **Issues:** None
