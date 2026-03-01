@@ -3,6 +3,7 @@ import type { RunData } from "@/types/run";
 import { parseFitFile } from "@/lib/fit-parser";
 
 export type MapMetric = "none" | "pace" | "heartRate" | "altitude" | "cadence";
+export type ChartXAxis = "distance" | "time";
 
 interface RunStore {
   // Run data
@@ -14,6 +15,8 @@ interface RunStore {
   unitSystem: "metric" | "imperial";
   hoveredIndex: number | null;
   mapMetric: MapMetric;
+  chartXAxis: ChartXAxis;
+  smoothingWindow: number;
 
   // Actions
   loadFile: (file: File) => Promise<void>;
@@ -21,6 +24,8 @@ interface RunStore {
   setUnitSystem: (unit: "metric" | "imperial") => void;
   setHoveredIndex: (index: number | null) => void;
   setMapMetric: (metric: MapMetric) => void;
+  setChartXAxis: (axis: ChartXAxis) => void;
+  setSmoothingWindow: (window: number) => void;
 }
 
 export const useRunStore = create<RunStore>((set) => ({
@@ -31,6 +36,8 @@ export const useRunStore = create<RunStore>((set) => ({
   unitSystem: "metric",
   hoveredIndex: null,
   mapMetric: "pace" as MapMetric,
+  chartXAxis: "distance" as ChartXAxis,
+  smoothingWindow: 10,
 
   loadFile: async (file: File) => {
     set({ isLoading: true, error: null });
@@ -58,6 +65,14 @@ export const useRunStore = create<RunStore>((set) => ({
 
   setMapMetric: (mapMetric) => {
     set({ mapMetric });
+  },
+
+  setChartXAxis: (chartXAxis) => {
+    set({ chartXAxis });
+  },
+
+  setSmoothingWindow: (smoothingWindow) => {
+    set({ smoothingWindow: Math.max(1, Math.min(30, smoothingWindow)) });
   },
 }));
 

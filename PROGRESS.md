@@ -293,3 +293,19 @@ Each entry should include:
   - `e2e/cadence-chart.spec.ts` — 7 new E2E tests covering rendering, axes, line path, responsiveness, unit switching, and tooltip
   - `epics/charts-graphs.md` — marked story as done
 - **Issues:** None
+
+## Add chart axis toggle and controls
+- **Completed:** 2026-03-02 00:00 UTC
+- **Epic:** Charts & Graphs
+- **Summary:** Created `ChartControls.tsx` with an X-axis toggle (Distance vs Time) and a smoothing slider (1-30 data points) placed above all charts. Added `chartXAxis` and `smoothingWindow` state to the Zustand store. Updated all four charts (PaceChart, HeartRateChart, ElevationChart, CadenceChart) to read these values from the store, replacing the hardcoded smoothing window and adding elapsed time (minutes) as an alternative X-axis. Toggling the X-axis updates all charts simultaneously.
+- **Changes:**
+  - `src/store/useRunStore.ts` — added `ChartXAxis` type, `chartXAxis` and `smoothingWindow` state, and setter actions
+  - `src/components/charts/ChartControls.tsx` — new component with X-axis toggle and smoothing slider using shadcn Slider
+  - `src/components/charts/PaceChart.tsx` — refactored to read chartXAxis and smoothingWindow from store, added elapsedMin data
+  - `src/components/charts/HeartRateChart.tsx` — refactored to read chartXAxis and smoothingWindow from store, added elapsedMin data
+  - `src/components/charts/ElevationChart.tsx` — refactored to read chartXAxis and smoothingWindow from store, added elapsedMin data
+  - `src/components/charts/CadenceChart.tsx` — refactored to read chartXAxis and smoothingWindow from store, added elapsedMin data
+  - `src/components/dashboard/DashboardLayout.tsx` — integrated ChartControls above charts in Charts tab
+  - `e2e/chart-controls.spec.ts` — 9 new E2E tests covering controls rendering, X-axis toggling, smoothing slider, clamping, tooltips, and state persistence
+  - `epics/charts-graphs.md` — marked story as done
+- **Issues:** None

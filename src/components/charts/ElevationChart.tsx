@@ -11,35 +11,40 @@ import {
 import { useRunStore } from "@/store/useRunStore";
 import { rollingAverage } from "@/lib/smoothing";
 
-const DEFAULT_SMOOTHING_WINDOW = 10;
 const METERS_PER_FOOT = 3.28084;
 
 interface ChartDataPoint {
   distanceKm: number;
   distanceMi: number;
+  elapsedMin: number;
   altitude: number; // smoothed, in display unit (m or ft)
   rawAltitude: number; // in display unit
 }
 
 export function ElevationChart() {
   const records = useRunStore((s) => s.runData?.records);
+  const startTime = useRunStore((s) => s.runData?.summary.startTime);
   const unitSystem = useRunStore((s) => s.unitSystem);
+  const chartXAxis = useRunStore((s) => s.chartXAxis);
+  const smoothingWindow = useRunStore((s) => s.smoothingWindow);
 
   const data = useMemo<ChartDataPoint[]>(() => {
     if (!records || records.length === 0) return [];
 
     const rawAltitudes = records.map((r) => r.altitude);
-    const smoothed = rollingAverage(rawAltitudes, DEFAULT_SMOOTHING_WINDOW);
+    const smoothed = rollingAverage(rawAltitudes, smoothingWindow);
 
     const isImperial = unitSystem === "imperial";
+    const start = startTime ? startTime.getTime() : records[0].timestamp.getTime();
 
     return records.map((r, i) => ({
       distanceKm: r.distance / 1000,
       distanceMi: r.distance / 1000 / 1.60934,
+      elapsedMin: (r.timestamp.getTime() - start) / 60000,
       altitude: isImperial ? smoothed[i] * METERS_PER_FOOT : smoothed[i],
       rawAltitude: isImperial ? r.altitude * METERS_PER_FOOT : r.altitude,
     }));
-  }, [records, unitSystem]);
+  }, [records, unitSystem, smoothingWindow, startTime]);
 
   if (data.length === 0) {
     return (
@@ -50,8 +55,13 @@ export function ElevationChart() {
   }
 
   const isMetric = unitSystem === "metric";
-  const distanceKey = isMetric ? "distanceKm" : "distanceMi";
-  const distanceLabel = isMetric ? "Distance (km)" : "Distance (mi)";
+  const isTime = chartXAxis === "time";
+  const xKey = isTime ? "elapsedMin" : isMetric ? "distanceKm" : "distanceMi";
+  const xLabel = isTime
+    ? "Time (min)"
+    : isMetric
+      ? "Distance (km)"
+      : "Distance (mi)";
   const elevationUnit = isMetric ? "m" : "ft";
 
   // Compute Y-axis domain from valid altitude values
@@ -67,11 +77,11 @@ export function ElevationChart() {
         <AreaChart data={data} margin={{ top: 5, right: 20, bottom: 20, left: 10 }}>
           <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
           <XAxis
-            dataKey={distanceKey}
+            dataKey={xKey}
             type="number"
             domain={["dataMin", "dataMax"]}
-            tickFormatter={(v: number) => v.toFixed(1)}
-            label={{ value: distanceLabel, position: "bottom", offset: 5 }}
+            tickFormatter={(v: number) => isTime ? Math.round(v).toString() : v.toFixed(1)}
+            label={{ value: xLabel, position: "bottom", offset: 5 }}
             tick={{ fontSize: 12 }}
           />
           <YAxis
@@ -94,7 +104,9 @@ export function ElevationChart() {
               return (
                 <div className="bg-popover border border-border rounded-md px-3 py-2 text-sm shadow-md">
                   <p className="text-muted-foreground">
-                    {dist.toFixed(2)} {isMetric ? "km" : "mi"}
+                    {isTime
+                      ? `${Math.round(d.elapsedMin)} min`
+                      : `${dist.toFixed(2)} ${isMetric ? "km" : "mi"}`}
                   </p>
                   <p className="font-medium">
                     {Math.round(d.altitude)} {elevationUnit}

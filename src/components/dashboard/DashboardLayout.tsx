@@ -9,6 +9,7 @@ import { PaceChart } from "@/components/charts/PaceChart"
 import { HeartRateChart } from "@/components/charts/HeartRateChart"
 import { ElevationChart } from "@/components/charts/ElevationChart"
 import { CadenceChart } from "@/components/charts/CadenceChart"
+import { ChartControls } from "@/components/charts/ChartControls"
 import {
   LayoutDashboard,
   Map,
@@ -86,6 +87,7 @@ export function DashboardLayout({ onLoadNew }: DashboardLayoutProps) {
           </TabsContent>
           <TabsContent value="charts" data-testid="tab-content-charts">
             <div className="space-y-6">
+              <ChartControls />
               <PaceChart />
               <HeartRateChart />
               <ElevationChart />

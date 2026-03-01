@@ -12,33 +12,37 @@ import { useRunStore } from "@/store/useRunStore";
 import { rollingAverage } from "@/lib/smoothing";
 import { convertPace } from "@/lib/units";
 
-const DEFAULT_SMOOTHING_WINDOW = 10;
-
 interface ChartDataPoint {
   distanceKm: number;
   distanceMi: number;
+  elapsedMin: number;
   pace: number; // sec per unit (km or mi), after smoothing
   rawPace: number; // for tooltip
 }
 
 export function PaceChart() {
   const records = useRunStore((s) => s.runData?.records);
+  const startTime = useRunStore((s) => s.runData?.summary.startTime);
   const unitSystem = useRunStore((s) => s.unitSystem);
+  const chartXAxis = useRunStore((s) => s.chartXAxis);
+  const smoothingWindow = useRunStore((s) => s.smoothingWindow);
 
   const data = useMemo<ChartDataPoint[]>(() => {
     if (!records || records.length === 0) return [];
 
-    // Extract raw paces and smooth them
     const rawPaces = records.map((r) => r.pace);
-    const smoothed = rollingAverage(rawPaces, DEFAULT_SMOOTHING_WINDOW);
+    const smoothed = rollingAverage(rawPaces, smoothingWindow);
+
+    const start = startTime ? startTime.getTime() : records[0].timestamp.getTime();
 
     return records.map((r, i) => ({
       distanceKm: r.distance / 1000,
       distanceMi: r.distance / 1000 / 1.60934,
+      elapsedMin: (r.timestamp.getTime() - start) / 60000,
       pace: convertPace(smoothed[i], unitSystem),
       rawPace: convertPace(r.pace, unitSystem),
     }));
-  }, [records, unitSystem]);
+  }, [records, unitSystem, smoothingWindow, startTime]);
 
   if (data.length === 0) {
     return (
@@ -49,8 +53,13 @@ export function PaceChart() {
   }
 
   const isMetric = unitSystem === "metric";
-  const distanceKey = isMetric ? "distanceKm" : "distanceMi";
-  const distanceLabel = isMetric ? "Distance (km)" : "Distance (mi)";
+  const isTime = chartXAxis === "time";
+  const xKey = isTime ? "elapsedMin" : isMetric ? "distanceKm" : "distanceMi";
+  const xLabel = isTime
+    ? "Time (min)"
+    : isMetric
+      ? "Distance (km)"
+      : "Distance (mi)";
   const paceLabel = isMetric ? "Pace (min/km)" : "Pace (min/mi)";
 
   // Compute Y-axis domain from valid smoothed values
@@ -66,11 +75,11 @@ export function PaceChart() {
         <LineChart data={data} margin={{ top: 5, right: 20, bottom: 20, left: 10 }}>
           <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
           <XAxis
-            dataKey={distanceKey}
+            dataKey={xKey}
             type="number"
             domain={["dataMin", "dataMax"]}
-            tickFormatter={(v: number) => v.toFixed(1)}
-            label={{ value: distanceLabel, position: "bottom", offset: 5 }}
+            tickFormatter={(v: number) => isTime ? Math.round(v).toString() : v.toFixed(1)}
+            label={{ value: xLabel, position: "bottom", offset: 5 }}
             tick={{ fontSize: 12 }}
           />
           <YAxis
@@ -94,7 +103,9 @@ export function PaceChart() {
               return (
                 <div className="bg-popover border border-border rounded-md px-3 py-2 text-sm shadow-md">
                   <p className="text-muted-foreground">
-                    {dist.toFixed(2)} {isMetric ? "km" : "mi"}
+                    {isTime
+                      ? `${Math.round(d.elapsedMin)} min`
+                      : `${dist.toFixed(2)} ${isMetric ? "km" : "mi"}`}
                   </p>
                   <p className="font-medium">
                     {formatPaceTick(d.pace)} {isMetric ? "/km" : "/mi"}
