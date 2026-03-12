@@ -1,0 +1,54 @@
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Dashboard skeleton: always visible at z-index 0 */
+.app__dashboard-layer {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Header bar: z-index 40, fixed at top */
+.app__header-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+}
+
+/* Drop zone overlay: z-index 50 */
+.app__overlay-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  transition: opacity 300ms ease-out;
+}
+
+.app__overlay-layer--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.app__overlay-layer--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Boot sequence overlay: z-index 60, full screen */
+.app__boot-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+}
