@@ -9,10 +9,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### File Handling
 
-- [ ] **FILE-01**: User can upload a FIT file via drag-and-drop onto the page
-- [ ] **FILE-02**: User can upload a FIT file via file picker button
+- [x] **FILE-01**: User can upload a FIT file via drag-and-drop onto the page
+- [x] **FILE-02**: User can upload a FIT file via file picker button
 - [x] **FILE-03**: User sees a friendly error when uploading a non-FIT or malformed file
-- [ ] **FILE-04**: User sees file metadata after upload (device, date, sport type)
+- [x] **FILE-04**: User sees file metadata after upload (device, date, sport type)
 
 ### Data Processing
 
@@ -90,10 +90,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FILE-01 | Phase 1 | Pending |
-| FILE-02 | Phase 1 | Pending |
+| FILE-01 | Phase 1 | Complete |
+| FILE-02 | Phase 1 | Complete |
 | FILE-03 | Phase 1 | Complete |
-| FILE-04 | Phase 1 | Pending |
+| FILE-04 | Phase 1 | Complete |
 | DATA-01 | Phase 1 | Complete |
 | DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Complete |
