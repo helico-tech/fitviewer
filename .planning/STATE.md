@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-12T08:42:11Z"
-last_activity: 2026-03-12 — Completed Plan 01-01 (project setup, type contracts, store, server)
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-12T08:51:46Z"
+last_activity: 2026-03-12 — Completed Plan 01-02 (FIT data pipeline, TDD)
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 4
-  completed_plans: 1
-  percent: 6
+  completed_plans: 2
+  percent: 12
 ---
 
 # Project State
@@ -26,28 +26,28 @@ See: .planning/PROJECT.md (updated 2026-03-12)
 ## Current Position
 
 Phase: 1 of 4 (Data Foundation)
-Plan: 1 of 4 in current phase (completed)
+Plan: 2 of 4 in current phase (completed)
 Status: Executing
-Last activity: 2026-03-12 — Completed Plan 01-01 (project setup, type contracts, store, server)
+Last activity: 2026-03-12 — Completed Plan 01-02 (FIT data pipeline, TDD)
 
-Progress: [█░░░░░░░░░] 6%
+Progress: [██░░░░░░░░] 12%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 3min
-- Total execution time: 0.05 hours
+- Total plans completed: 2
+- Average duration: 4.5min
+- Total execution time: 0.15 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1 - Data Foundation | 1 | 3min | 3min |
+| 1 - Data Foundation | 2 | 9min | 4.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min)
-- Trend: Starting
+- Last 5 plans: 01-01 (3min), 01-02 (6min)
+- Trend: Ramping up
 
 *Updated after each plan completion*
 
@@ -64,6 +64,9 @@ Recent decisions affecting current work:
 - [01-01]: Added DOM and DOM.Iterable to tsconfig lib for browser API support
 - [01-01]: Zustand store uses status-driven state machine (empty/loading/loaded/error)
 - [01-01]: Bun.build() route workaround for Web Worker serving at /worker.js
+- [01-02]: Decoder.checkIntegrity() is instance method, not static -- dual stream/decoder pattern needed
+- [01-02]: avgRunningCadence from expanded subField used directly; avgCadence doubled as fallback
+- [01-02]: Test fixtures generated programmatically via @garmin/fitsdk Encoder
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T08:42:11Z
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-data-foundation/01-01-SUMMARY.md
+Last session: 2026-03-12T08:51:46Z
+Stopped at: Completed 01-02-PLAN.md
+Resume file: .planning/phases/01-data-foundation/01-02-SUMMARY.md

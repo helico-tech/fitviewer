@@ -11,15 +11,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **FILE-01**: User can upload a FIT file via drag-and-drop onto the page
 - [ ] **FILE-02**: User can upload a FIT file via file picker button
-- [ ] **FILE-03**: User sees a friendly error when uploading a non-FIT or malformed file
+- [x] **FILE-03**: User sees a friendly error when uploading a non-FIT or malformed file
 - [ ] **FILE-04**: User sees file metadata after upload (device, date, sport type)
 
 ### Data Processing
 
 - [x] **DATA-01**: FIT file is parsed entirely client-side (no server)
-- [ ] **DATA-02**: FIT GPS semicircle coordinates are converted to decimal degrees
-- [ ] **DATA-03**: Summary stats are computed (distance, duration, avg/max pace, avg/max HR, cadence, total elevation gain)
-- [ ] **DATA-04**: Time-series data is downsampled (LTTB) for chart performance
+- [x] **DATA-02**: FIT GPS semicircle coordinates are converted to decimal degrees
+- [x] **DATA-03**: Summary stats are computed (distance, duration, avg/max pace, avg/max HR, cadence, total elevation gain)
+- [x] **DATA-04**: Time-series data is downsampled (LTTB) for chart performance
 - [x] **DATA-05**: FIT parsing runs in a Web Worker to avoid blocking the UI
 
 ### Dashboard
@@ -92,12 +92,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | FILE-01 | Phase 1 | Pending |
 | FILE-02 | Phase 1 | Pending |
-| FILE-03 | Phase 1 | Pending |
+| FILE-03 | Phase 1 | Complete |
 | FILE-04 | Phase 1 | Pending |
 | DATA-01 | Phase 1 | Complete |
-| DATA-02 | Phase 1 | Pending |
-| DATA-03 | Phase 1 | Pending |
-| DATA-04 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Complete |
+| DATA-03 | Phase 1 | Complete |
+| DATA-04 | Phase 1 | Complete |
 | DATA-05 | Phase 1 | Complete |
 | DASH-01 | Phase 2 | Pending |
 | DASH-02 | Phase 2 | Pending |
