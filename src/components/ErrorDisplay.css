@@ -1,0 +1,57 @@
+.error-display {
+  text-align: center;
+  padding: 1.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.error-display__message {
+  color: #ffb347;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+}
+
+.error-display__toggle {
+  background: none;
+  border: none;
+  color: rgba(255, 179, 71, 0.6);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.error-display__toggle:hover {
+  color: #ffb347;
+}
+
+.error-display__details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+  opacity: 0;
+}
+
+.error-display__details--open {
+  max-height: 300px;
+  opacity: 1;
+  margin-top: 0.75rem;
+}
+
+.error-display__details-text {
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+  font-size: 0.75rem;
+  color: rgba(224, 224, 224, 0.45);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  text-align: left;
+  margin: 0;
+}
