@@ -1,0 +1,102 @@
+.dashboard-skeleton {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem 2rem;
+}
+
+/* Stats row */
+.dashboard-skeleton__stats-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  flex: 1 1 120px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: opacity 0.4s ease, border-color 0.4s ease;
+}
+
+.stat-card--ghost {
+  opacity: 0.12;
+}
+
+.stat-card__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(224, 224, 224, 0.4);
+}
+
+.stat-card__value {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--neon-primary, #00ffaa);
+  text-shadow: 0 0 12px rgba(0, 255, 170, 0.25);
+}
+
+.stat-card--ghost .stat-card__value {
+  color: rgba(224, 224, 224, 0.25);
+  text-shadow: none;
+}
+
+.stat-card__unit {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(224, 224, 224, 0.35);
+}
+
+/* Chart placeholders */
+.dashboard-skeleton__charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-skeleton__bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.dashboard-skeleton__placeholder {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.12;
+}
+
+.dashboard-skeleton__placeholder--wide {
+  grid-column: span 2;
+  height: 160px;
+}
+
+.dashboard-skeleton__placeholder--half {
+  height: 140px;
+}
+
+.dashboard-skeleton__placeholder--map {
+  height: 240px;
+}
+
+.dashboard-skeleton__placeholder--table {
+  height: 240px;
+}
+
+.dashboard-skeleton__placeholder-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(224, 224, 224, 0.3);
+}

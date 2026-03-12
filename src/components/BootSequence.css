@@ -1,0 +1,67 @@
+.boot-sequence {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0f;
+}
+
+.boot-sequence__terminal {
+  text-align: left;
+  max-width: 480px;
+  padding: 2rem;
+}
+
+.boot-sequence__message {
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+  font-size: 1rem;
+  color: var(--neon-primary, #00ffaa);
+  text-shadow: 0 0 8px rgba(0, 255, 170, 0.4);
+  margin: 0;
+  animation: boot-fade-in 0.15s ease-out;
+}
+
+.boot-sequence__cursor {
+  color: var(--neon-secondary, #00ccff);
+  opacity: 1;
+  animation: boot-blink 0.6s step-end infinite;
+  margin-right: 0.35em;
+}
+
+@keyframes boot-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes boot-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Subtle scanline overlay */
+.boot-sequence::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.05) 0px,
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
