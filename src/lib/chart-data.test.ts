@@ -70,9 +70,9 @@ describe("toPaceData", () => {
       makeRecord(120, { speed: 4.0 }),
     ];
     const result = toPaceData(records, startTime);
-    expect(result[0].elapsed).toBeCloseTo(0, 1); // 0 minutes
-    expect(result[1].elapsed).toBeCloseTo(2, 1); // 2 minutes
-    expect(result[0].value).toBeCloseTo(5.0, 0); // ~5 min/km pace
+    expect(result[0]!.elapsed).toBeCloseTo(0, 1); // 0 minutes
+    expect(result[1]!.elapsed).toBeCloseTo(2, 1); // 2 minutes
+    expect(result[0]!.value).toBeCloseTo(5.0, 0); // ~5 min/km pace
   });
 
   test("returns empty array for records with all null speed", () => {
@@ -94,8 +94,8 @@ describe("toHrData", () => {
     ];
     const result = toHrData(records, startTime);
     expect(result).toHaveLength(2);
-    expect(result[0].value).toBe(140);
-    expect(result[1].value).toBe(160);
+    expect(result[0]!.value).toBe(140);
+    expect(result[1]!.value).toBe(160);
   });
 
   test("computes elapsed minutes correctly", () => {
@@ -104,8 +104,8 @@ describe("toHrData", () => {
       makeRecord(300, { heartRate: 160 }),
     ];
     const result = toHrData(records, startTime);
-    expect(result[0].elapsed).toBeCloseTo(0, 1);
-    expect(result[1].elapsed).toBeCloseTo(5, 1); // 300s = 5min
+    expect(result[0]!.elapsed).toBeCloseTo(0, 1);
+    expect(result[1]!.elapsed).toBeCloseTo(5, 1); // 300s = 5min
   });
 });
 
@@ -118,8 +118,8 @@ describe("toElevationData", () => {
     ];
     const result = toElevationData(records, startTime);
     expect(result).toHaveLength(2);
-    expect(result[0].value).toBe(100);
-    expect(result[1].value).toBe(120);
+    expect(result[0]!.value).toBe(100);
+    expect(result[1]!.value).toBe(120);
   });
 });
 
@@ -132,7 +132,7 @@ describe("toCadenceData", () => {
     ];
     const result = toCadenceData(records, startTime);
     expect(result).toHaveLength(2);
-    expect(result[0].value).toBe(170);
-    expect(result[1].value).toBe(175);
+    expect(result[0]!.value).toBe(170);
+    expect(result[1]!.value).toBe(175);
   });
 });
