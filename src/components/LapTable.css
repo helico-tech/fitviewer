@@ -1,0 +1,39 @@
+.lap-table {
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(10, 14, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.lap-table__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.lap-table__header th {
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: rgba(224, 224, 224, 0.4);
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 255, 170, 0.1);
+}
+
+.lap-table__cell {
+  padding: 0.4rem 0.6rem;
+  color: rgba(224, 224, 224, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", "JetBrains Mono", monospace;
+}
+
+.lap-table__cell--pace {
+  color: var(--neon-primary, #00ffaa);
+}
+
+.lap-table__row:hover td {
+  background: rgba(0, 255, 170, 0.03);
+}
