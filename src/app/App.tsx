@@ -3,6 +3,7 @@ import { useActivityStore } from "../store/activity-store.ts";
 import { handleFileUpload } from "../lib/parse-file.ts";
 import { DropZone } from "../components/DropZone.tsx";
 import { BootSequence } from "../components/BootSequence.tsx";
+import { Dashboard } from "../components/Dashboard.tsx";
 import { DashboardSkeleton } from "../components/DashboardSkeleton.tsx";
 import { HeaderBar } from "../components/HeaderBar.tsx";
 import "./App.css";
@@ -30,9 +31,9 @@ export function App() {
 
   return (
     <div className="app">
-      {/* Dashboard skeleton is always rendered as the background layer */}
+      {/* Dashboard layer: real dashboard when loaded, skeleton wireframe otherwise */}
       <div className="app__dashboard-layer">
-        <DashboardSkeleton />
+        {status === "loaded" ? <Dashboard /> : <DashboardSkeleton />}
       </div>
 
       {/* Header bar appears at top when loaded */}
