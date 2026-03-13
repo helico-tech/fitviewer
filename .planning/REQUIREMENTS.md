@@ -24,14 +24,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dashboard
 
-- [ ] **DASH-01**: User sees a summary stats panel with key metrics after upload
+- [x] **DASH-01**: User sees a summary stats panel with key metrics after upload
 - [ ] **DASH-02**: User sees a pace chart over time
 - [ ] **DASH-03**: User sees a heart rate chart over time
 - [ ] **DASH-04**: User sees an elevation profile chart
 - [ ] **DASH-05**: User sees a cadence chart over time
 - [ ] **DASH-06**: User sees a GPS route map of the run
 - [ ] **DASH-07**: User sees a lap/split table with per-split metrics
-- [ ] **DASH-08**: Dashboard gracefully hides panels when data channels are absent (e.g., no GPS = no map)
+- [x] **DASH-08**: Dashboard gracefully hides panels when data channels are absent (e.g., no GPS = no map)
 
 ### Interactivity
 
@@ -39,10 +39,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Visual Style
 
-- [ ] **STYLE-01**: Dashboard uses a dark background with neon/glowing accent lines
+- [x] **STYLE-01**: Dashboard uses a dark background with neon/glowing accent lines
 - [ ] **STYLE-02**: All data is visible on one screen — dense layout, no tabs
 - [ ] **STYLE-03**: Charts animate on load and react to hover
-- [ ] **STYLE-04**: HUD-style gauges and overlays for key metrics
+- [x] **STYLE-04**: HUD-style gauges and overlays for key metrics
 
 ### Export
 
@@ -99,19 +99,19 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-03 | Phase 1 | Complete |
 | DATA-04 | Phase 1 | Complete |
 | DATA-05 | Phase 1 | Complete |
-| DASH-01 | Phase 2 | Pending |
+| DASH-01 | Phase 2 | Complete |
 | DASH-02 | Phase 2 | Pending |
 | DASH-03 | Phase 2 | Pending |
 | DASH-04 | Phase 2 | Pending |
 | DASH-05 | Phase 2 | Pending |
 | DASH-06 | Phase 2 | Pending |
 | DASH-07 | Phase 2 | Pending |
-| DASH-08 | Phase 2 | Pending |
+| DASH-08 | Phase 2 | Complete |
 | INTX-01 | Phase 3 | Pending |
-| STYLE-01 | Phase 2 | Pending |
+| STYLE-01 | Phase 2 | Complete |
 | STYLE-02 | Phase 2 | Pending |
 | STYLE-03 | Phase 3 | Pending |
-| STYLE-04 | Phase 2 | Pending |
+| STYLE-04 | Phase 2 | Complete |
 | EXPORT-01 | Phase 4 | Pending |
 
 **Coverage:**

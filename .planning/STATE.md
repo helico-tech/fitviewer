@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 01-04-PLAN.md (Phase 1 complete)
-last_updated: "2026-03-13T09:27:25.635Z"
-last_activity: 2026-03-13 — Completed Plan 01-04 (Integration wiring)
+status: in-progress
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-03-13T10:03:26Z"
+last_activity: 2026-03-13 — Completed Plan 02-01 (Dashboard foundation)
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
-  percent: 100
+  total_plans: 8
+  completed_plans: 5
+  percent: 63
 ---
 
 # Project State
@@ -21,38 +21,39 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-12)
 
 **Core value:** Upload a FIT file and instantly see run data presented like mission control telemetry. The visual experience is the product.
-**Current focus:** Phase 1 — Data Foundation
+**Current focus:** Phase 2 — Dashboard
 
 ## Current Position
 
-Phase: 1 of 4 (Data Foundation)
-Plan: 4 of 4 in current phase (completed)
-Status: Phase 1 Complete
-Last activity: 2026-03-13 — Completed Plan 01-04 (Integration wiring)
+Phase: 2 of 4 (Dashboard)
+Plan: 1 of 4 in current phase (completed)
+Status: In Progress
+Last activity: 2026-03-13 — Completed Plan 02-01 (Dashboard foundation)
 
-Progress: [██████████] 100%
+Progress: [██████░░░░] 63%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 3.5min
-- Total execution time: 0.23 hours
+- Total plans completed: 5
+- Average duration: 3.4min
+- Total execution time: 0.28 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Data Foundation | 4 | 14min | 3.5min |
+| 2 - Dashboard | 1 | 3min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min), 01-02 (6min), 01-03 (3min), 01-04 (2min)
-- Trend: Accelerating
+- Last 5 plans: 01-02 (6min), 01-03 (3min), 01-04 (2min), 02-01 (3min)
+- Trend: Stable
 
 *Updated after each plan completion*
 | Phase 01 P03 | 3min | 2 tasks | 10 files |
 | Phase 01 P04 | 2min | 2 tasks | 4 files |
-| Phase 01 P04 | 2min | 2 tasks | 4 files |
+| Phase 02 P01 | 3min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,8 @@ Recent decisions affecting current work:
 - [01-04]: DashboardSkeleton renders always as background; overlays stack via z-index
 - [01-04]: Boot sequence is decorative -- always completes regardless of parse timing
 - [Phase 01-04]: Lazy Web Worker initialization -- worker created on first file upload, not at page load
+- [02-01]: SSR-based testing with renderToString for component tests avoids DOM environment complexity
+- [02-01]: Non-null assertions in test array indexing for TypeScript strict mode compliance
 
 ### Pending Todos
 
@@ -87,11 +90,11 @@ None yet.
 - [Phase 1]: RESOLVED — @garmin/fitsdk chosen, installed v21.195.0
 - [Phase 1]: RESOLVED — Bun.build() route workaround verified for Web Worker serving
 - [Phase 2]: Spike Tailwind v4 + Bun bundler integration before starting chart work — known rough edge
-- [Phase 2]: Verify React 19 peer dep compatibility for `recharts` and `react-map-gl` before install
+- [Phase 2]: RESOLVED — React 19 peer dep compatibility verified; recharts@3.8.0, react-is@19.2.4, @vis.gl/react-maplibre@8.1.0 installed
 - [Phase 2]: Confirm Carto Dark Matter free tile URL still valid in 2026 — have fallback plan ready
 
 ## Session Continuity
 
-Last session: 2026-03-13T09:23:25.256Z
-Stopped at: Completed 01-04-PLAN.md (Phase 1 complete)
+Last session: 2026-03-13T10:03:26Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
