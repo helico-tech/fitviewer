@@ -48,7 +48,7 @@ Plans:
   4. User sees a lap/split table with per-split metrics below the charts
   5. Dashboard panels for absent data channels (e.g., no GPS, no HR) are hidden rather than rendered empty or broken
   6. The entire dashboard uses a dark background with neon/glowing accent colors and HUD-style metric overlays
-**Plans:** 4 plans
+**Plans:** 2/4 plans executed
 
 Plans:
 - [ ] 02-01-PLAN.md — Install dependencies, data utilities (channel detection, chart transforms), HUD StatsPanel
@@ -83,6 +83,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete   | 2026-03-13 |
-| 2. Dashboard | 0/4 | Not started | - |
+| 2. Dashboard | 2/4 | In Progress|  |
 | 3. Interactivity and Animation | 0/TBD | Not started | - |
 | 4. Export | 0/TBD | Not started | - |
