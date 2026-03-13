@@ -13,7 +13,7 @@ Four phases from a working parse pipeline through an interactive, export-ready t
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Data Foundation** - Working FIT parse pipeline with Web Worker ingest, unit conversions, derived metrics, and RunStore — no visualization beyond a functional drop zone (completed 2026-03-13)
-- [ ] **Phase 2: Dashboard** - Full single-run telemetry dashboard with dark/neon HUD aesthetic: summary stats, charts, route map, lap splits — all in one dense screen
+- [x] **Phase 2: Dashboard** - Full single-run telemetry dashboard with dark/neon HUD aesthetic: summary stats, charts, route map, lap splits — all in one dense screen (completed 2026-03-13)
 - [ ] **Phase 3: Interactivity and Animation** - Cross-chart cursor synchronization, map position sync on scrub, and animated chart entry transitions
 - [ ] **Phase 4: Export** - PNG export of the complete dashboard view
 
@@ -48,13 +48,13 @@ Plans:
   4. User sees a lap/split table with per-split metrics below the charts
   5. Dashboard panels for absent data channels (e.g., no GPS, no HR) are hidden rather than rendered empty or broken
   6. The entire dashboard uses a dark background with neon/glowing accent colors and HUD-style metric overlays
-**Plans:** 2/4 plans executed
+**Plans:** 4/4 plans complete
 
 Plans:
-- [ ] 02-01-PLAN.md — Install dependencies, data utilities (channel detection, chart transforms), HUD StatsPanel
-- [ ] 02-02-PLAN.md — Four Recharts time-series charts (pace, HR, elevation, cadence) with neon glow aesthetic
-- [ ] 02-03-PLAN.md — MapLibre GPS route map on dark basemap, lap splits table
-- [ ] 02-04-PLAN.md — Dashboard integration: CSS grid layout, conditional rendering, App.tsx wiring, visual verification
+- [x] 02-01-PLAN.md — Install dependencies, data utilities (channel detection, chart transforms), HUD StatsPanel
+- [x] 02-02-PLAN.md — Four Recharts time-series charts (pace, HR, elevation, cadence) with neon glow aesthetic
+- [x] 02-03-PLAN.md — MapLibre GPS route map on dark basemap, lap splits table
+- [x] 02-04-PLAN.md — Dashboard integration: CSS grid layout, conditional rendering, App.tsx wiring, visual verification
 
 ### Phase 3: Interactivity and Animation
 **Goal**: The dashboard feels alive — charts animate on load and scrubbing any chart syncs position across all charts and the map
@@ -83,6 +83,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete   | 2026-03-13 |
-| 2. Dashboard | 2/4 | In Progress|  |
+| 2. Dashboard | 4/4 | Complete   | 2026-03-13 |
 | 3. Interactivity and Animation | 0/TBD | Not started | - |
 | 4. Export | 0/TBD | Not started | - |

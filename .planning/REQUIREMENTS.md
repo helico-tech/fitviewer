@@ -40,7 +40,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Visual Style
 
 - [x] **STYLE-01**: Dashboard uses a dark background with neon/glowing accent lines
-- [ ] **STYLE-02**: All data is visible on one screen — dense layout, no tabs
+- [x] **STYLE-02**: All data is visible on one screen — dense layout, no tabs
 - [ ] **STYLE-03**: Charts animate on load and react to hover
 - [x] **STYLE-04**: HUD-style gauges and overlays for key metrics
 
@@ -109,7 +109,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DASH-08 | Phase 2 | Complete |
 | INTX-01 | Phase 3 | Pending |
 | STYLE-01 | Phase 2 | Complete |
-| STYLE-02 | Phase 2 | Pending |
+| STYLE-02 | Phase 2 | Complete |
 | STYLE-03 | Phase 3 | Pending |
 | STYLE-04 | Phase 2 | Complete |
 | EXPORT-01 | Phase 4 | Pending |

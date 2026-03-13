@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-03-PLAN.md
-last_updated: "2026-03-13T10:14:05.426Z"
-last_activity: 2026-03-13 — Completed Plan 02-03 (Route map and lap table)
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-03-13T10:20:12Z"
+last_activity: 2026-03-13 — Completed Plan 02-04 (Dashboard integration)
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 7
-  percent: 88
+  completed_plans: 8
+  percent: 100
 ---
 
 # Project State
@@ -21,33 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-12)
 
 **Core value:** Upload a FIT file and instantly see run data presented like mission control telemetry. The visual experience is the product.
-**Current focus:** Phase 2 — Dashboard
+**Current focus:** Phase 2 complete — ready for Phase 3
 
 ## Current Position
 
-Phase: 2 of 4 (Dashboard)
-Plan: 3 of 4 in current phase (completed)
-Status: In Progress
-Last activity: 2026-03-13 — Completed Plan 02-03 (Route map and lap table)
+Phase: 2 of 4 (Dashboard) - COMPLETE
+Plan: 4 of 4 in current phase (completed)
+Status: Phase Complete
+Last activity: 2026-03-13 — Completed Plan 02-04 (Dashboard integration)
 
-Progress: [█████████░] 88%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 2.9min
-- Total execution time: 0.33 hours
+- Total execution time: 0.38 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Data Foundation | 4 | 14min | 3.5min |
-| 2 - Dashboard | 3 | 7min | 2.3min |
+| 2 - Dashboard | 4 | 10min | 2.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (3min), 01-04 (2min), 02-01 (3min), 02-02 (2min), 02-03 (2min)
+- Last 5 plans: 01-04 (2min), 02-01 (3min), 02-02 (2min), 02-03 (2min), 02-04 (3min)
 - Trend: Stable/Improving
 
 *Updated after each plan completion*
@@ -56,6 +56,7 @@ Progress: [█████████░] 88%
 | Phase 02 P01 | 3min | 2 tasks | 11 files |
 | Phase 02 P02 | 2min | 2 tasks | 7 files |
 | Phase 02 P03 | 2min | 2 tasks | 6 files |
+| Phase 02 P04 | 3min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,9 @@ Recent decisions affecting current work:
 - [02-03]: LayerSpecification typed route style object for MapLibre type safety
 - [02-03]: SSR-based testing with renderToString for LapTable (same pattern as StatsPanel)
 - [02-03]: Pace/duration/distance formatters local to LapTable (not shared with StatsPanel -- different behavior)
+- [02-04]: Chart components render their own wrappers -- Dashboard does not double-nest panel containers
+- [02-04]: DashboardSkeleton simplified to pure ghost wireframe (removed StatsRow, formatters, store dep)
+- [02-04]: Store-driven view switching: App.tsx renders Dashboard vs DashboardSkeleton based on status
 
 ### Pending Todos
 
@@ -102,6 +106,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T10:13:03Z
-Stopped at: Completed 02-03-PLAN.md
+Last session: 2026-03-13T10:20:12Z
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None
