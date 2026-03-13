@@ -12,7 +12,7 @@ Four phases from a working parse pipeline through an interactive, export-ready t
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Data Foundation** - Working FIT parse pipeline with Web Worker ingest, unit conversions, derived metrics, and RunStore — no visualization beyond a functional drop zone
+- [x] **Phase 1: Data Foundation** - Working FIT parse pipeline with Web Worker ingest, unit conversions, derived metrics, and RunStore — no visualization beyond a functional drop zone (completed 2026-03-13)
 - [ ] **Phase 2: Dashboard** - Full single-run telemetry dashboard with dark/neon HUD aesthetic: summary stats, charts, route map, lap splits — all in one dense screen
 - [ ] **Phase 3: Interactivity and Animation** - Cross-chart cursor synchronization, map position sync on scrub, and animated chart entry transitions
 - [ ] **Phase 4: Export** - PNG export of the complete dashboard view
@@ -29,13 +29,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User sees a clear error message when uploading a non-FIT or malformed file
   4. After a valid upload, user sees file metadata: device, date, and sport type
   5. The browser UI remains responsive during parsing of a large file (parsing happens off the main thread)
-**Plans:** 4 plans
+**Plans:** 4/4 plans complete
 
 Plans:
 - [x] 01-01-PLAN.md — Project setup, type contracts, Zustand store, Bun.serve entry point
 - [x] 01-02-PLAN.md — FIT data pipeline: parse, normalize, downsample, Web Worker (TDD)
-- [ ] 01-03-PLAN.md — UI components: drop zone, boot sequence, dashboard skeleton, header bar, error display
-- [ ] 01-04-PLAN.md — Integration wiring: App component, file upload handler, end-to-end verification
+- [x] 01-03-PLAN.md — UI components: drop zone, boot sequence, dashboard skeleton, header bar, error display
+- [x] 01-04-PLAN.md — Integration wiring: App component, file upload handler, end-to-end verification
 
 ### Phase 2: Dashboard
 **Goal**: Users see their run data presented as a high-density, dark/neon telemetry dashboard on a single screen
@@ -76,7 +76,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 2/4 | In Progress | - |
+| 1. Data Foundation | 4/4 | Complete   | 2026-03-13 |
 | 2. Dashboard | 0/TBD | Not started | - |
 | 3. Interactivity and Animation | 0/TBD | Not started | - |
 | 4. Export | 0/TBD | Not started | - |
