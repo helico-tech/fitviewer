@@ -29,8 +29,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DASH-03**: User sees a heart rate chart over time
 - [x] **DASH-04**: User sees an elevation profile chart
 - [x] **DASH-05**: User sees a cadence chart over time
-- [ ] **DASH-06**: User sees a GPS route map of the run
-- [ ] **DASH-07**: User sees a lap/split table with per-split metrics
+- [x] **DASH-06**: User sees a GPS route map of the run
+- [x] **DASH-07**: User sees a lap/split table with per-split metrics
 - [x] **DASH-08**: Dashboard gracefully hides panels when data channels are absent (e.g., no GPS = no map)
 
 ### Interactivity
@@ -104,8 +104,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DASH-03 | Phase 2 | Complete |
 | DASH-04 | Phase 2 | Complete |
 | DASH-05 | Phase 2 | Complete |
-| DASH-06 | Phase 2 | Pending |
-| DASH-07 | Phase 2 | Pending |
+| DASH-06 | Phase 2 | Complete |
+| DASH-07 | Phase 2 | Complete |
 | DASH-08 | Phase 2 | Complete |
 | INTX-01 | Phase 3 | Pending |
 | STYLE-01 | Phase 2 | Complete |
