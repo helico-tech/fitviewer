@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "devDependencies": {
+    "@happy-dom/global-registrator": "^20.8.4",
     "@types/bun": "latest",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3"
@@ -13,9 +14,13 @@
   },
   "dependencies": {
     "@garmin/fitsdk": "^21.195.0",
+    "@vis.gl/react-maplibre": "^8.1.0",
     "downsample": "^1.4.0",
+    "maplibre-gl": "^5.20.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-is": "^19.0.0",
+    "recharts": "^3.8.0",
     "zustand": "^5.0.11"
   }
 }
